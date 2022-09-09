@@ -1,7 +1,6 @@
 from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
 from flask_app.models.user import User
-from flask_app.models.movie import Movie
 from flask_bcrypt import Bcrypt 
 
 bcrypt = Bcrypt(app)
@@ -12,9 +11,9 @@ def home():
 
 @app.route('/register_login')
 def index():
-    return render_template('login.html') #nombre primer html
+    return render_template('register.html') #nombre primer html
 
-@app.route('/register_user', methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
 
     #messages = User.validation(request.form)
@@ -25,55 +24,56 @@ def register():
     pwd = bcrypt.generate_password_hash(request.form['password'])
     
     form = {
-        'nickname':request.form['nickname'],
         'first_name':request.form['first_name'],
         'last_name':request.form['last_name'],
+        'birth_date':request.form['birth_date'],
+        #rol
         'email':request.form['email'],
         'password':pwd,
     }
     
     id=User.create_user(form)
-    session['id']=id
+    session['user_id']=id
     
     return jsonify(message='Correct')
 
-@app.route('/login_user', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     user = User.user_by_email(request.form)
     if not user: 
         return jsonify(message='Wrong email')
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         return jsonify(message='Wrong password')
-    session['id']=user.id
+    session['user_id']=user.id
     return jsonify(message='Correct')
 
 @app.route('/home')
 def home_reviews():
-    if not 'id' in session:
-        return redirect('/login')
+    if not 'user_id' in session:
+        return redirect('/register_login')
     data = {
-        'id': session['id']
+        'id': session['user_id']
     }
     user = User.user_by_id(data)
     users = User.get_all()
-    return render_template('home.html', user=user, users=users, count=count, movies=movies, count_m=count_m)
+    return render_template('home.html', user=user, users=users)
 
 @app.route('/view_user')
 def view_user():
-    if not 'id' in session:
-        return redirect('/login')
+    if not 'user_id' in session:
+        return redirect('/register_login')
     data = {
-        'id': session['id']
+        'id': session['user_id']
     }
     user = User.user_by_id(data)
     return render_template('view_user.html', user=user)
 
 @app.route('/edit_user')
 def edit_user():
-    if not 'id' in session:
-        return redirect('/login')
+    if not 'user_id' in session:
+        return redirect('/register_login')
     data = {
-        'id': session['id']
+        'id': session['user_id']
     }
     user = User.user_by_id(data)
     return render_template('edit_user.html', user=user)
@@ -87,18 +87,18 @@ def update_user():
 
 @app.route('/delete/<int:id>')
 def delete_user(id):
-    if not 'id' in session:
-        return redirect('/login')
+    if not 'user_id' in session:
+        return redirect('/register_login')
     data = {'id':id}
     User.delete_user(data)
     return redirect('/home')
 
 @app.route('/change_password', methods=['POST'])
 def change_password():
-    if not 'id' in session:
-        return redirect('/login')
+    if not 'user_id' in session:
+        return redirect('/register_login')
     data = {
-        'id': session['id']
+        'id': session['user_id']
     }
     user = User.user_by_id(data)
     if not bcrypt.check_password_hash(user.password, request.form['old_password']):
