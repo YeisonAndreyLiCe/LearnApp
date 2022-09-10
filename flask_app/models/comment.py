@@ -5,6 +5,7 @@ class Comment:
         self.id = data['id']
         self.title = data['title']
         self.comment = data['comment']
+        self.rate = data['rate']
         self.user_id = data['user_id']
         self.course_id = data['course_id']
         self.created_at = data['created_at']
@@ -19,7 +20,7 @@ class Comment:
         return comments
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO comments (comment, user_id, message_id) VALUES (%(title)s, %(comment)s, %(user_id)s, %(course_id)s);"
+        query = "INSERT INTO comments (title, comment, rate, user_id, course_id) VALUES (%(title)s, %(comment)s, %(rate)s, %(user_id)s, %(course_id)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_by_id(cls, data):
@@ -29,13 +30,27 @@ class Comment:
         return cls(result[0])
     @classmethod
     def update(cls, data):
-        query = "UPDATE comments SET title = %(title)s, comment = %(comment)s WHERE id = %(id)s;"
+        query = "UPDATE comments SET title = %(title)s, comment = %(comment)s, rate = %(rate)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def delete(cls, data):
         id = { 'id': data }
         query = "DELETE FROM comments WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
+    @classmethod
+    def get_by_course_id(cls, data):
+        id = { 'id': data }
+        query = "SELECT * FROM comments WHERE course_id = %(id)s;"
+        results = connectToMySQL('learn_app').query_db(query, id)
+        comments = [cls(comment) for comment in results]
+        return comments
+    @classmethod
+    def get_by_user_id(cls, data):
+        id = { 'id': data }
+        query = "SELECT * FROM comments WHERE user_id = %(id)s;"
+        results = connectToMySQL('learn_app').query_db(query, id)
+        comments = [cls(comment) for comment in results]
+        return comments
     @staticmethod
     def validate(data):
         errors = {}
@@ -43,4 +58,6 @@ class Comment:
             errors['title'] = 'The field title should have at least 2 characters'
         if len(data['comment']) < 10:
             errors['comment'] = 'The field comment should have at least 10 characters'
+        if len(data['rate']) < 1:
+            errors['rate'] = 'The course should be rated'
         return errors
