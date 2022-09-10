@@ -44,4 +44,9 @@ class Categories:
     # Metodo para validar la información que se está enviando a la base de datos
     @staticmethod
     def validate_category(data):
-        pass
+        errors = {}
+        if len(data['name']) < 2:
+            errors['name'] = 'The field name should have at least 2 characters'
+        if len(data['description']) < 2:
+            errors['description'] = 'The field description should have at least 2 characters'
+        return errors
