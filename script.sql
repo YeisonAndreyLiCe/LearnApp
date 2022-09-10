@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema learn_app
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `learn_app` ;
 
 -- -----------------------------------------------------
 -- Schema learn_app
@@ -31,18 +32,17 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `learn_app`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `firts_name` VARCHAR(100) NOT NULL,
+  `first_name` VARCHAR(100) NOT NULL,
   `last_name` VARCHAR(100) NOT NULL,
   `birth_date` DATE NOT NULL,
   `email` VARCHAR(150) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `rol_id` INT NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `is_admin` TINYINT NULL DEFAULT 0,
+  `rol_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_users_roles_idx` (`rol_id` ASC) VISIBLE,
-  CONSTRAINT `fk_users_roles`
+  INDEX `fk_users_roles1_idx` (`rol_id` ASC) VISIBLE,
+  CONSTRAINT `fk_users_roles1`
     FOREIGN KEY (`rol_id`)
     REFERENCES `learn_app`.`roles` (`id`)
     ON DELETE NO ACTION
