@@ -34,3 +34,11 @@ class Course:
         id = { 'id': data }
         query = "DELETE FROM courses WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
+    @staticmethod
+    def validate(data):
+        errors = {}
+        if len(data['title']) < 5:
+            errors['title'] = 'The field title should have at least 5 characters'
+        if len(data['description']) < 15:
+            errors['description'] = 'The field description should have at least 15 characters'
+        return errors

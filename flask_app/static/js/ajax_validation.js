@@ -1,4 +1,3 @@
-console.log('Hello')
 $(window).ready(function() {
     var form = document.getElementsByClassName('form')[0];
     console.log(form)
@@ -11,7 +10,6 @@ $(window).ready(function() {
         .then (response => response.json())
         .then (data => {
             if ('route' in data) {
-                console.log(data.route)
                 window.location.href = data.route;
             }
             else {

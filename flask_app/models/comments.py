@@ -36,3 +36,11 @@ class Comment:
         id = { 'id': data }
         query = "DELETE FROM comments WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
+    @staticmethod
+    def validate(data):
+        errors = {}
+        if len(data['title']) < 2:
+            errors['title'] = 'The field title should have at least 2 characters'
+        if len(data['comment']) < 10:
+            errors['comment'] = 'The field comment should have at least 10 characters'
+        return errors
