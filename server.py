@@ -1,5 +1,6 @@
 from flask_app import app
 from flask import session
+from flask_app.controllers import users_controller
 
 
 if __name__ == '__main__':
