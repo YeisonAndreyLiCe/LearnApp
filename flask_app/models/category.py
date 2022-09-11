@@ -26,7 +26,7 @@ class Category:
     def get_by_id(cls, data):
         query = "SELECT * FROM categories WHERE id = %(id)s"
         result = connectToMySQL('learn_app').query_db(query, data)
-        return result
+        return cls(result[0])
 
     # Metodo para editar una categoria
     @classmethod

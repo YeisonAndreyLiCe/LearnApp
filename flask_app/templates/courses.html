@@ -19,9 +19,9 @@
             </div>
         </div>
         <ol>
-            {% for a in categories %}
+            {% for category in categories %}
                 <li>
-                    <a href="/a.name">{{a.name}}</a>
+                    <a href="/categories/{{category.id}}">{{category.name}}</a>
                 </li>
             {% endfor %}
         </ol>

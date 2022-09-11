@@ -20,15 +20,15 @@ class User:
         self.courses = []
 
     def get_enrolled_courses(self):
-        query = "SELECT * FROM user_has_courses WHERE user_id = %(id)s;"
+        query = "SELECT * FROM users_has_courses WHERE user_id = %(id)s;"
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
         results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
-        self.courses = [Course(results) for result in results]
-        return self
+        self.courses = [Course(result) for result in results]
+        return self.courses
 
     @classmethod
     def enroll_course(cls, data):
-        query = "INSERT INTO user_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
+        query = "INSERT INTO users_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_all(cls):
