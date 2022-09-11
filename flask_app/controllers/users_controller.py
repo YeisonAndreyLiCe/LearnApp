@@ -2,9 +2,10 @@ import json
 from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
 from flask_app.models.user import User
-from flask_app.models.course import Course
+from flask_app.models.courses import Course
 from flask_app.models.category import Category
 from flask_bcrypt import Bcrypt 
+from flask_app.models.user_has_courses import User_has_Courses
 #import bcrypt
 
 bcrypt = Bcrypt(app)
@@ -63,7 +64,8 @@ def courses():
     user = User.get_by_id(data)
     users = User.get_all()
     courses = Course.get_all()
-    course_user = user.get_enrolled_courses()
+    course_user = User_has_Courses.get_by_user_id(data)
+    print('*'*50)
     print(course_user)
     categories = Category.get_all()
     print(categories)

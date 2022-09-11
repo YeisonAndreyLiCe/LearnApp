@@ -19,12 +19,16 @@ class User:
         self.updated_at = data['updated_at']
         self.courses = []
 
-    def get_enrolled_courses(self):
-        query = "SELECT * FROM users_has_courses WHERE user_id = %(id)s;"
+    @classmethod
+    def get_enrolled_courses(cls, data):
+        data = {'user_id': data} 
+        query = "SELECT * FROM users_has_courses WHERE user_id = %(user_id)s;"
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
-        results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
-        self.courses = [Course(result) for result in results]
-        return self.courses
+        results = connectToMySQL('learn_app').query_db(query, data)
+        print('*'*100)
+        print(results)
+        courses = [Course(result) for result in results]
+        return courses
 
     @classmethod
     def enroll_course(cls, data):

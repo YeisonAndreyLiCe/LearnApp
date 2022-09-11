@@ -28,9 +28,9 @@ class Course:
 
     @classmethod
     def get_by_id(cls, data):
-        id = {'id': data}
+        #id = {'id': data}
         query = "SELECT * FROM courses WHERE id = %(id)s;"
-        result = connectToMySQL('learn_app').query_db(query, id)
+        result = connectToMySQL('learn_app').query_db(query, data)
         return cls(result[0])
 
     @classmethod
