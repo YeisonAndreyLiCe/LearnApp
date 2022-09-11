@@ -46,9 +46,8 @@ class Course:
 
     @classmethod
     def get_by_category_id(cls, data):
-        id = {'id': data}
         query = "SELECT * FROM courses WHERE category_id = %(id)s;"
-        results = connectToMySQL('learn_app').query_db(query, id)
+        results = connectToMySQL('learn_app').query_db(query, data)
         courses = [cls(course) for course in results]
         return courses
 
