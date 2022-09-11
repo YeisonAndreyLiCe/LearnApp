@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.courses import Course
+from flask_app.models.category import Category
 from flask_bcrypt import Bcrypt 
 #import bcrypt
 
@@ -63,7 +64,8 @@ def courses():
     users = User.get_all()
     courses = Course.get_all()
     course_user = Course.get_by_user_id(data)
-    return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses)
+    categories = Category.get_all()
+    return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses, categories=categories)
 
 # @app.route('/view_user')
 # def view_user():
