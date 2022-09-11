@@ -12,9 +12,11 @@ class Course:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
+        self.instructor_name = data['instructor_name']
+
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM courses;"
+        query = "SELECT u.first_name as instructor_name ,c.* FROM courses as c left join users as u on c.instructor_id = u.id;"
         results = connectToMySQL('learn_app').query_db(query)
         courses = []
         for course in results:
@@ -29,8 +31,9 @@ class Course:
     @classmethod
     def get_by_id(cls, data):
         #id = {'id': data}
-        query = "SELECT * FROM courses WHERE id = %(id)s;"
+        query = "SELECT u.first_name as instructor_name, c.* FROM courses as c left join users as u on c.instructor_id = u.id WHERE id = %(id)s;"
         result = connectToMySQL('learn_app').query_db(query, data)
+        print(f" resultados mostrados:{result}")
         return cls(result[0])
 
     @classmethod
@@ -46,7 +49,7 @@ class Course:
 
     @classmethod
     def get_by_category_id(cls, data):
-        query = "SELECT * FROM courses WHERE category_id = %(id)s;"
+        query = "SELECT u.first_name as instructor_name, c.* FROM courses as c left join users as u on c.instructor_id = u.id WHERE category_id = %(id)s;"
         results = connectToMySQL('learn_app').query_db(query, data)
         #print(results)
         courses = [cls(course) for course in results]
@@ -54,7 +57,7 @@ class Course:
 
     @classmethod
     def get_by_user_id(cls, data):
-        query = "SELECT * FROM courses WHERE user_id = %(id)s;"
+        query = "SELECT u.first_name as instructor_name, c.* FROM courses as c left join users as u on c.instructor_id = u.id WHERE c.instructor_id = %(id)s;"
         results = connectToMySQL('learn_app').query_db(query, data)
         if results:
             courses = [cls(course) for course in results]
