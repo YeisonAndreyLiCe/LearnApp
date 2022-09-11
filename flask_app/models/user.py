@@ -23,7 +23,7 @@ class User:
         query = "SELECT * FROM user_has_courses WHERE user_id = %(id)s;"
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
         results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
-        self.courses = [Course(results) for result in results]
+        self.courses = [Course(result) for result in results]
         return self
 
     @classmethod
