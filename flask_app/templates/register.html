@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<body>
+    <div class="container col-12 pt-4">
+            <div class="d-flex flex-row align-items-center justify-content-center mb-5">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
+                <h2 class="text-info"> Learn App</h2>
+            </div>
+            <main class="row d-flex justify-content-around">
+                <div class="col-4  text-info rounded-3 p-3 mb-2 border border-5">
+                    <h2 class="text-info d-flex justify-content-center">Register</h2>
+    
+                    {% with messages = get_flashed_messages(category_filter=['registro']) %}
+                        {% if messages %}
+                            <div class="alert alert-danger">
+                                {% for message in messages %}
+                                    <p>{{message}}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+    
+                    <form id="form" action="/register" method="post">
+                        <div class="form-group">
+                            <label for="first_name">Name</label>
+                            <input type="text" id="first_name" name="first_name" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" id="last_name" name="last_name" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="birth_date">Birth Date</label>
+                            <input type="date" id="birth_date" name="birth_date" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="email">E-mail</label>
+                            <input type="text" id="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" class="btn btn-primary mt-4" value="Send">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-4  text-info rounded-3 p-3 mb-2 border border-primary border-5">
+                    <h2 class="text-info d-flex justify-content-center">Login</h2>
+                    {% with messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                    <form id="form_login" action="/login" method="post">
+                        <div class="form-group ">
+                            <label for="email2">E-mail</label>
+                            <input type="text" id="email2" name="email" class="form-control">
+                        </div>
+                        <div class="form-group pt-3">
+                            <label for="password2">Password</label>
+                            <input type="password" id="password2" name="password" class="form-control">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" class= "btn btn-primary mt-4" value="Login">
+                        </div>
+                    </form>
+                </div>
+            </main>
+    </div>
+</body>
+{% endblock %}
