@@ -19,7 +19,6 @@ class User:
         self.updated_at = data['updated_at']
         self.courses = []
 
-    
     def get_enrolled_courses(self):
         query = "SELECT * FROM user_has_courses WHERE user_id = %(id)s;"
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
