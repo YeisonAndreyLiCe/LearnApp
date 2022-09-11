@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from datetime import datetime, timedelta
 import re
-from flask_app.models.course import Course
+from flask_app.models.courses import Course
 
 re_password = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
 re_email = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -20,7 +20,7 @@ class User:
         self.courses = []
 
     def get_enrolled_courses(self):
-        query = "SELECT * FROM user_has_courses WHERE user_id = %(id)s;"
+        query = "SELECT * FROM users_has_courses WHERE user_id = %(id)s;"
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
         results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
         self.courses = [Course(result) for result in results]
@@ -28,7 +28,7 @@ class User:
 
     @classmethod
     def enroll_course(cls, data):
-        query = "INSERT INTO user_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
+        query = "INSERT INTO users_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_all(cls):

@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<main>
+    <h1 class="text-light" >{{category.name}}</h1>
+    <div class="container text-light">
+        {{category.description}}
+    </div>
+    <div>
+        <ul>
+            {% for c in courses %}
+            <li>
+                <a href="/courses/{{c.id}}">{{c.name}}</a>
+                <form action="/enroll" method="post">
+                    <input type="hidden" name="user_id" value="{{user.id}}">
+                    <input type="hidden" name="course_id" value="{{c.id}}">
+                    <button type="submit" class="btn btn-primary">Enroll</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</main>
+{% endblock %}

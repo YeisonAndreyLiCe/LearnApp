@@ -6,11 +6,22 @@
         <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
         <h2 class="text-info"> Welcome To Learn App</h2>
     </div>
-    <main>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 ">
+                {% if course_user %}
+                <ol class="navbar-nav">
+                    {% for c in course_user %}
+                    <li class="list-item"><a class="nav-link" href="/courses/{{c.id}}"></a>{{c.name}}</li>
+                    {% endfor %}
+                </ol>
+                {% endif %}
+            </div>
+        </div>
         <ol>
-            {% for a in categories %}
+            {% for category in categories %}
                 <li>
-                    <a href="/a.name">{{a.name}}</a>
+                    <a href="/categories/{{category.id}}">{{category.name}}</a>
                 </li>
             {% endfor %}
         </ol>
