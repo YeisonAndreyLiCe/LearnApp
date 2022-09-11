@@ -13,7 +13,7 @@ def home():
 
 @app.route('/register_login')
 def index():
-    return render_template('register_prov.html') #nombre primer html
+    return render_template('register.html') #nombre primer html
 
 @app.route('/register', methods=['POST'])
 def register():
