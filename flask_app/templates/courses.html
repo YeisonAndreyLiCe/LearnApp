@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<body class="container col-12 pt-4">
+    <div class="d-flex flex-row align-items-center justify-content-center mb-5">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
+        <h2 class="text-info"> Welcome To Learn App</h2>
+    </div>
+    <main>
+        <ol>
+            {% for a in categories %}
+                <li>
+                    <a href="/a.name">{{a.name}}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </main>
+</body>
+{% endblock %}
