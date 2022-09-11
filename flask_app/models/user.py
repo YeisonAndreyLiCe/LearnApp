@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from datetime import datetime, timedelta
 import re
-from flask_app.models.course import Course
+from flask_app.models.courses import Course
 
 re_password = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
 re_email = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')

@@ -54,11 +54,12 @@ class Course:
 
     @classmethod
     def get_by_user_id(cls, data):
-        id = {'id': data}
         query = "SELECT * FROM courses WHERE user_id = %(id)s;"
-        results = connectToMySQL('learn_app').query_db(query, id)
-        courses = [cls(course) for course in results]
-        return courses
+        results = connectToMySQL('learn_app').query_db(query, data)
+        if results:
+            courses = [cls(course) for course in results]
+            return courses
+        return False
 
     @staticmethod
     def validate(data):

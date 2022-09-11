@@ -65,6 +65,7 @@ def courses():
     courses = Course.get_all()
     course_user = Course.get_by_user_id(data)
     categories = Category.get_all()
+    print(categories)
     return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses, categories=categories)
 
 # @app.route('/view_user')
