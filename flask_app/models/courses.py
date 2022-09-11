@@ -1,3 +1,4 @@
+from unittest import result
 from flask_app.config.mysqlconnection import connectToMySQL
 
 
@@ -6,7 +7,7 @@ class Course:
         self.id = data['id']
         self.name = data['name']
         self.description = data['description']
-        self.instruction_id = data['instructor_id']
+        self.instructor_id = data['instructor_id']
         self.category_id = data['category_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
@@ -27,9 +28,9 @@ class Course:
 
     @classmethod
     def get_by_id(cls, data):
-        id = {'id': data}
+        #id = {'id': data}
         query = "SELECT * FROM courses WHERE id = %(id)s;"
-        result = connectToMySQL('learn_app').query_db(query, id)
+        result = connectToMySQL('learn_app').query_db(query, data)
         return cls(result[0])
 
     @classmethod
@@ -47,16 +48,18 @@ class Course:
     def get_by_category_id(cls, data):
         query = "SELECT * FROM courses WHERE category_id = %(id)s;"
         results = connectToMySQL('learn_app').query_db(query, data)
+        #print(results)
         courses = [cls(course) for course in results]
         return courses
 
     @classmethod
     def get_by_user_id(cls, data):
-        id = {'id': data}
         query = "SELECT * FROM courses WHERE user_id = %(id)s;"
-        results = connectToMySQL('learn_app').query_db(query, id)
-        courses = [cls(course) for course in results]
-        return courses
+        results = connectToMySQL('learn_app').query_db(query, data)
+        if results:
+            courses = [cls(course) for course in results]
+            return courses
+        return False
 
     @staticmethod
     def validate(data):

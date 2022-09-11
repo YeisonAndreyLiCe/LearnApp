@@ -11,7 +11,7 @@ $(window).ready(function() {
                 window.location.href = data.route;
             }
             else {
-                var alertMessage = document.getElementById('alertMessage');
+                var alertMessage = document.getElementById('alertMessage_login');
                 alertMessage.innerHTML = "";
                 for (var key in data) {
                     alertMessage.innerHTML += data[key] + '<br>';
