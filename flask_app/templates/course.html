@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="container">
+        {% for c in course %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ c.name }}</h5>
+                    <h6 class="card-title">{{ c.instructor_id }}</h6>
+                    <p class="card-text">{{ c.description }}</p>
+                    <a href="#" class="btn btn-primary">Suscribe</a>
+                </div>
+            </div>
+        {% endfor %}
+    <a class="btn btn-info" href="/courses">Back</a>
+    </div>
+{% end block %}
