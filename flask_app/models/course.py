@@ -3,10 +3,11 @@ from flask_app.config.mysqlconnection import connectToMySQL
 class Course:
     def __init__(self, data):
         self.id = data['id']
-        self.title = data['title']
+        self.title = data['name']
         self.description = data['description']
-        self.category_id = data['category_id']
-        self.instructor_id = data['instructor_id']
+        self.description = data['instructor_id']
+        self.description = data['category_id']
+        self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
     @classmethod
@@ -19,7 +20,7 @@ class Course:
         return courses
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO courses (title, description, category_id, instructor_id) VALUES (%(title)s, %(description)s, %(category_id)s, %(instructor_id)s);"
+        query = "INSERT INTO courses (name, description, category_id, instructor_id) VALUES (%(title)s, %(description)s, %(category_id)s, %(instructor_id)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_by_id(cls, data):
