@@ -4,11 +4,10 @@ from flask_app.config.mysqlconnection import connectToMySQL
 class Course:
     def __init__(self, data):
         self.id = data['id']
-        self.title = data['name']
+        self.name = data['name']
         self.description = data['description']
-        self.description = data['instructor_id']
-        self.description = data['category_id']
-        self.description = data['description']
+        self.instruction_id = data['instructor_id']
+        self.category_id = data['category_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
@@ -40,7 +39,7 @@ class Course:
 
     @classmethod
     def delete(cls, data):
-        id = { 'id': data }
+        id = {'id': data}
         query = "DELETE FROM courses WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
 
@@ -62,8 +61,8 @@ class Course:
     @staticmethod
     def validate(data):
         errors = {}
-        if len(data['title']) < 5:
-            errors['title'] = 'The field title should have at least 5 characters'
+        if len(data['name']) < 5:
+            errors['name'] = 'The field title should have at least 5 characters'
         if len(data['description']) < 15:
             errors['description'] = 'The field description should have at least 15 characters'
         if len(data['category_id']) < 1:

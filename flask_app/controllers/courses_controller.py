@@ -4,7 +4,7 @@ from flask_app.models.user import User
 from flask_app.models.courses import Course
 from flask_app.models.category import Category
 
-@app.route('categories/<int:id>')
+@app.route('/categories/<int:id>')
 def course_by_category(id):
     if not 'user_id' in session:
         return redirect('/register_login')
@@ -15,7 +15,7 @@ def course_by_category(id):
     user=User.get_by_id(data_user)
     return render_template('category_desc.html', courses=courses, category=category, user=user)
 
-@app.route('courses/<int:id>')
+@app.route('/courses/<int:id>')
 def course(id):
     if not 'user_id' in session:
         return redirect('/register_login')
