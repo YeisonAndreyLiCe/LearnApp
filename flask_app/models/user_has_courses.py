@@ -8,11 +8,15 @@ class User_has_Courses:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
+        self.name_course = data['name_course']
+
     @classmethod
     def get_by_user_id(cls, data):
-        query = "FROM learn_app.users_has_courses LEFT JOIN users as user_courses ON users_has_courses.user_id = %(id)s JOIN courses ON user_courses.id = %(id)s;"
+        query = "SELECT c.name as name_course, u.* FROM users_has_courses as u LEFT JOIN courses as c on u.course_id = c.id where u.user_id = %(id)s"
         results = connectToMySQL('learn_app').query_db(query, data)
+        print(f"coursos del usuario: {results}")
         if results:
             courses = [cls(course) for course in results]
+            print(courses)
             return courses
         return False

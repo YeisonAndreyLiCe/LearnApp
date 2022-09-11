@@ -12,7 +12,11 @@
                 {% if course_user %}
                 <ol class="navbar-nav">
                     {% for c in course_user %}
-                    <li class="list-item"><a class="nav-link" href="/courses/{{c.id}}"></a>{{c.name}}</li>
+                        <div class="card-body bg-light">
+                            <h5 class="card-title">{{ c.user_id }}</h5>
+                            <h6 class="card-title">{{ c.name_course }}</h6>
+                            <p class="card-text">{{ c.created_at }}</p>
+                        </div>
                     {% endfor %}
                 </ol>
                 {% endif %}

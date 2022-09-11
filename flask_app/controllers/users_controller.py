@@ -63,7 +63,9 @@ def courses():
     }
     user = User.get_by_id(data)
     users = User.get_all()
+    # get all courses
     courses = Course.get_all()
+    # gel all course of user
     course_user = User_has_Courses.get_by_user_id(data)
     print('*'*50)
     print(course_user)
