@@ -24,7 +24,7 @@ class User:
         #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
         results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
         self.courses = [Course(result) for result in results]
-        return self
+        return self.courses
 
     @classmethod
     def enroll_course(cls, data):
