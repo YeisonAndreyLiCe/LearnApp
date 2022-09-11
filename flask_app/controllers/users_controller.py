@@ -1,7 +1,7 @@
 import json
 from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
-from flask_app.models.users import User
+from flask_app.models.user import User
 from flask_bcrypt import Bcrypt 
 #import bcrypt
 
@@ -84,7 +84,7 @@ def edit_user():
 
 @app.route('/update_user', methods=['POST'])
 def update_user():
-    if not User.valid_edit(request.form):
+    if not User.validate_update(request.form):
             return redirect('/edit_user')
     User.update(request.form)
     return redirect('/view_user')

@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from datetime import datetime, timedelta
 import re
+from flask_app.models.course import Course
 
 re_password = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
 re_email = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -16,6 +17,20 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.courses = []
+
+    
+    def get_enrolled_courses(self):
+        query = "SELECT * FROM user_has_courses WHERE user_id = %(id)s;"
+        #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
+        results = connectToMySQL('learn_app').query_db(query, {'id': self.id})
+        self.courses = [Course(results) for result in results]
+        return self
+
+    @classmethod
+    def enroll_course(cls, data):
+        query = "INSERT INTO user_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
+        return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
@@ -28,7 +43,6 @@ class User:
     def save(cls, data):
         query = "INSERT INTO users (first_name, last_name, birth_date, email, password, rol_id) VALUES (%(first_name)s, %(last_name)s, %(birth_date)s, %(email)s, %(password)s, %(rol_id)s);"
         result = connectToMySQL('learn_app').query_db(query, data)
-        print('helooooooooooooooooooooo',result)
         return result
     @classmethod
     def get_by_email(cls,data):
@@ -54,6 +68,7 @@ class User:
         id = { 'id': data }
         query = "DELETE FROM users WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
+
     @staticmethod
     def validate(data):
         errors={}
@@ -61,10 +76,13 @@ class User:
             errors['first_name']='First name should have at least 2 characters'
         if len(data['last_name'])<2:
             errors['last_name']='Last name should have at least 2 characters'
-        now = datetime.now().year
-        date = datetime.strptime((data['birth_date']),'%Y-%m-%d').year
-        if now-date<14:
-            errors['birth_date']='You should are at least 14 years old'
+        if data['birth_date'] == '':
+            errors['birth_date']='Birth date is required'
+        else:
+            now = datetime.now().year
+            date = datetime.strptime((data['birth_date']),'%Y-%m-%d').year
+            if now-date < 14:
+                errors['birth_date']='You should are at least 14 years old'
         if not re_email.match(data['email']):
             errors['email']='Please enter a valid email'
         query='SELECT * FROM users WHERE email = %(email)s'
@@ -73,7 +91,25 @@ class User:
             errors['emailExist']='Email already exists'
         if not re_password.match(data['password']):
             errors['password']= "Password must be at least 8 characters, contain at least one number, one uppercase and one lowercase letter"
+        return errors      
+    @staticmethod
+    def validate_update(data):
+        errors={}
+        if len(data['first_name'])<2:
+            errors['first_name']='First name should have at least 2 characters'
+        if len(data['last_name'])<2:
+            errors['last_name']='Last name should have at least 2 characters'
+        if data['birth_date'] == '':
+            errors['birth_date']='Birth date is required'
+        else:
+            now = datetime.now().year
+            date = datetime.strptime((data['birth_date']),'%Y-%m-%d').year
+            if now-date < 14:
+                errors['birth_date']='You should are at least 14 years old'
+        """ if not re_email.match(data['email']):
+            errors['email']='Please enter a valid email'
+        query='SELECT * FROM users WHERE email = %(email)s'
+        result=connectToMySQL('learn_app').query_db(query,data)
+        if result:
+            errors['emailExist']='Email already exists' """
         return errors
-        
-        
-        

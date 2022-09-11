@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 
 
-class Categories:
+class Category:
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
@@ -43,7 +43,7 @@ class Categories:
 
     # Metodo para validar la información que se está enviando a la base de datos
     @staticmethod
-    def validate_category(data):
+    def validate(data):
         errors = {}
         if len(data['name']) < 2:
             errors['name'] = 'The field name should have at least 2 characters'
