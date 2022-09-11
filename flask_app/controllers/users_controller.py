@@ -2,6 +2,8 @@ import json
 from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
 from flask_app.models.user import User
+from flask_app.models.courses import Course
+from flask_app.models.category import Category
 from flask_bcrypt import Bcrypt 
 #import bcrypt
 
@@ -38,7 +40,7 @@ def register():
             }
             id=User.save(form)
             session['user_id']=id
-            return jsonify({'route':'/home'})
+            return jsonify({'route':'/courses'})
     return redirect('/register_login')
 
 @app.route('/login', methods=['POST'])
@@ -49,10 +51,10 @@ def login():
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         return jsonify({'message':'Wrong password'})
     session['user_id']=user.id
-    return jsonify({'route':'/home'})
+    return jsonify({'route':'/courses'})
 
-@app.route('/home')
-def home_reviews():
+@app.route('/courses')
+def courses():
     if not 'user_id' in session:
         return redirect('/register_login')
     data = {
@@ -60,7 +62,10 @@ def home_reviews():
     }
     user = User.get_by_id(data)
     users = User.get_all()
-    return render_template('home.html', user=user, users=users)
+    courses = Course.get_all()
+    course_user = Course.get_by_user_id(data)
+    categories = Category.get_all()
+    return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses, categories=categories)
 
 # @app.route('/view_user')
 # def view_user():
@@ -95,7 +100,7 @@ def delete_user(id):
         return redirect('/register_login')
     data = {'id':id}
     User.delete(data)
-    return redirect('/home')
+    return redirect('/courses')
 
 @app.route('/update_password', methods=['POST'])
 def update_password():
@@ -116,7 +121,7 @@ def update_password():
         'password':pwd1
     }
     User.update_password(form)
-    return redirect('/home')
+    return redirect('/courses')
 
 @app.route('/logout')
 def logout():
