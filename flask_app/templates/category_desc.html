@@ -1,7 +1,9 @@
 {% extends 'index.html' %}
+{% block logotitle %} Categories {% endblock %}
 
 {% block content %}
 <main>
+
     <h1 class="text-light" >{{category.name}}</h1>
     <div class="container text-light">
         {{category.description}}

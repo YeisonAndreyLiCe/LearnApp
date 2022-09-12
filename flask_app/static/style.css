@@ -24,7 +24,21 @@ body{
     border: var(--bs-border-width) var(--bs-border-style) #86ee60!important;
 }
 
+
+
 .text-info {
     --bs-text-opacity: 1;
     color: #86ee60!important;
+}
+
+/*courses*/
+
+
+.borderr {
+    border: var(--bs-border-width) var(--bs-border-style) #e9ecef!important;
+}
+
+.text-white {
+    --bs-text-opacity: 1;
+    color: #e9ecef!important;
 }

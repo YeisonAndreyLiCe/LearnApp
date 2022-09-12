@@ -13,7 +13,12 @@
     {% endblock %}
 </head>
 <body class="fondo">
-    {% block header %}{% endblock %}
+    {% block header %}
+    <div class="d-flex flex-row align-items-center justify-content-center mb-5">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
+        <h2 class="text-info"> {% block logotitle %} Welcome To Learn App {% endblock %}</h2>
+    </div>
+    {% endblock %}
     {% block content %}{% endblock %}
     {% block footer %}{% endblock %}
     {% block scripts %}

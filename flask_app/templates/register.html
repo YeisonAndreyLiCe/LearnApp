@@ -1,12 +1,7 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<body>
     <div class="container col-12 pt-4">
-            <div class="d-flex flex-row align-items-center justify-content-center mb-5">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
-                <h2 class="text-info"> Learn App</h2>
-            </div>
             <main class="row d-flex justify-content-around">
                 <div class="col-4  text-info rounded-3 p-3 mb-2 border border-5">
                     <h2 class="text-info d-flex justify-content-center">Register</h2>
@@ -63,5 +58,4 @@
                 </div>
             </main>
     </div>
-</body>
 {% endblock %}
