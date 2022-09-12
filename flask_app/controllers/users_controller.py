@@ -49,6 +49,7 @@ def login():
     user = User.get_by_email(request.form)
     if not user: 
         return jsonify({'message':'Wrong email'})
+    user = User(user[0])
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         return jsonify({'message':'Wrong password'})
     session['user_id']=user.id

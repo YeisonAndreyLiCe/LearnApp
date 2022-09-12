@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    console.log("admin.js loaded");
     form = $('#form');
     $('.list-group-item').each(function() {
         $(this).click(function() {

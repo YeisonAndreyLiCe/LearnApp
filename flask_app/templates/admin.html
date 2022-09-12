@@ -7,7 +7,7 @@
     <header>
         <nav class="navbar">
             <a href="#" class="mx-2">
-                <img src="images/logo.png" alt="Learn app logo" width="40">
+                <img src="{{url_for('static' , filename='images/logo.png' )}}" alt="Learn app logo" width="40">
             </a>
             <h4 class="text-light mx-2">Admin</h4>
         </nav>
@@ -46,6 +46,6 @@
     </footer>
 {% endblock %}
 {% block script %}
-{{ super() }}
-    <script src="{{url_for('static', filename='js/admin.js')}}"></script>
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 {% endblock %}

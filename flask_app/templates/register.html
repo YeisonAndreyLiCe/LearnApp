@@ -59,3 +59,7 @@
             </main>
     </div>
 {% endblock %}
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/login_validation.js') }}"></script>
+{% endblock %}

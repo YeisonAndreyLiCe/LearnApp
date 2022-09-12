@@ -1,6 +1,5 @@
 $(window).ready(function() {
     var form = document.getElementById('form');
-    console.log(form);
     var FetchTo = form.getAttribute('action');
     form.onsubmit = function(e) {
         e.preventDefault();
