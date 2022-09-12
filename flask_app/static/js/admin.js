@@ -52,6 +52,7 @@ $(document).ready(function() {
                             </div>`+ button;
                 $('#form').html(fields);
                 $('#form').attr('action', '/create_record');
+                $('#form').attr('enctype', 'multipart/form-data');
             }
         });
     });
