@@ -1,0 +1,40 @@
+body{
+    position: relative;
+    padding-bottom:5rem ;
+    min-height: 100vh;
+    background-image : linear-gradient(
+        to bottom right,
+        #000e14 0%,
+        #00111a 25%,
+        #00141f 50%,
+        #001824 75%,
+        #001b29 100%
+    );
+}
+.navbar{
+    background-color: #1e5372;
+}
+.sidebar{
+    flex-grow: 1;
+    flex-basis: 15rem;
+}
+
+.form{
+    flex-grow: 999;
+    flex-basis: 0;
+    min-width: 60%;
+}
+
+.sidebar ul {
+    flex-grow: 1;
+    flex-basis: 15rem;
+}
+
+#footer{
+    background-color: #1e5372;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 2.5rem;
+    color: #fff;
+}
