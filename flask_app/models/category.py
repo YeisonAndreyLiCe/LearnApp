@@ -12,7 +12,7 @@ class Category:
     # Metodo para guardar categorias
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO categories (name, description) VALUES (%(name)s, %(descrition)s);"
+        query = "INSERT INTO categories (name, description) VALUES (%(name)s, %(description)s);"
         return connectToMySQL('learn_app').query_db(query, data)
 
     # Metodo para traer todas las categorias
