@@ -1,7 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 
 
-class Records:
+class Record:
     def __init__(self, data):
         self.name = data['id']
         self.name = data['name']
