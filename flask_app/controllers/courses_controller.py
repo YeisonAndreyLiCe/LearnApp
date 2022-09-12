@@ -29,3 +29,23 @@ def course(id):
 def enroll_course():
     User.enroll_course(request.form)
     return('/courses') 
+
+@app.route('/create_course')
+def create_course():
+    if not 'user_id' in session:
+        return redirect('/register_login')
+    return render_template('create_course.html')
+
+@app.route('/insert', methods=['POST'])
+def insert_course():
+    if request.method=='POST':
+        errors = Course.validate(request.form)
+        if errors:
+            return jsonify(errors)
+        else:
+            Course.save(request.form)
+            #revisar a donde se va a redireccionar
+            return jsonify({'route':'/courses'})
+    return redirect('/register_login')
+
+
