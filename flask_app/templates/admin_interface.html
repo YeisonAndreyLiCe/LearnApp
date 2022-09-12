@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block content %}
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 offset-">
+                {% if course_user %}
+                <ol class="navbar-nav">
+                    {% for c in course_user %}
+                        <div class="card-body bg-light">
+                            <h5 class="card-title">{{ c.user_id }}</h5>
+                            <h6 class="card-title">{{ c.name_course }}</h6>
+                            <p class="card-text">{{ c.created_at }}</p>
+                        </div>
+                    {% endfor %}
+                </ol>
+                {% endif %}
+            </div>
+        </div>
+        <ol>
+            {% for category in categories %}
+                <li>
+                    <a href="/categories/{{category.id}}">{{category.name}}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </main>
+{% endblock %}

@@ -6,18 +6,21 @@
 
     <h1 class="text-light" >{{category.name}}</h1>
     <div class="container text-light">
-        {{category.description}}
+        <h2 class="text-center"> {{category.description}}</h2>
     </div>
     <div>
         <ul>
             {% for c in courses %}
             <li>
-                <a href="/courses/{{c.id}}">{{c.name}}</a>
-                <form action="/enroll" method="post">
-                    <input type="hidden" name="user_id" value="{{user.id}}">
-                    <input type="hidden" name="course_id" value="{{c.id}}">
-                    <button type="submit" class="btn btn-primary">Enroll</button>
-                </form>
+                <div class="card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
+                    <h6>Name: <a href="/courses/{{c.id}}">{{c.name}}</a></h6>
+                    <p><strong>Instructor:</strong> {{ c.instructor_name }}</p>
+                    <form action="/enroll" method="post">
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                        <input type="hidden" name="course_id" value="{{c.id}}">
+                        <button type="submit" class="btn btn-primary">Enroll</button>
+                    </form>
+                </div>
             </li>
             {% endfor %}
         </ul>
