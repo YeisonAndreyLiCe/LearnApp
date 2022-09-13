@@ -17,8 +17,8 @@
     <main class="text-light d-flex gap-1 flex-wrap p-2">
         <ul class="list-group sidebar">
             <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" > Add Course</a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" > Add Record </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories}}')"> Add Course</a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
         </ul>
         <div class="container form">
             <h3 class="text-center">Add <span id="title">Category</span></h3>
@@ -34,16 +34,41 @@
                             <label class="fw-bold" for="category-description">Description</label>
                             <textarea class="form-control" id="category-description" rows="3" name="description" onkeydown="autoGrow(this)" onkeyup="autoGrow(this)"></textarea>
                         </div>
-                        <select class="form-select visually-hidden" aria-label="Default select example" name="course_id" id="courseCategory">
-                            {% for category in categories %}
-                                <option value="{{category.id}}" name="category_id">{{category.name}}</option>
-                            {% endfor %}
-                        </select>
                         <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>User name</th>
+                    <th>User email</th>
+                    <th> Update rol</th>
+                </tr>
+            </thead>
+            <tbody class="bg-light">
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.first_name}} {{user.last_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <form action="/edit_user">
+                                <label for="rol">Rol</label>
+                                <select id="rol">
+                                    {% for rol in roles %}
+                                        {% if rol.name!='admin '%} <!-- admin? -->
+                                            <option value="rol.id" name="rol_id">{{rol.name}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                                <input type="submit" class="btn">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </main>
 {% endblock %}
 {% block footer %}

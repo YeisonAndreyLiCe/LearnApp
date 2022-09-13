@@ -13,7 +13,9 @@ def admin():
     if session['user_id'] != 1:
         return redirect('/')
     categories = Category.get_all()
-    #categories = json.dumps(categories)
-    print(categories)
-    return render_template('admin.html', categories=categories) 
+    courses = Course.get_all_as_dic()
+    categories = json.dumps(categories)
+    courses = json.dumps(courses)
+    users = User.get_all()
+    return render_template('admin.html', categories=categories, courses=courses, users=users) 
 
