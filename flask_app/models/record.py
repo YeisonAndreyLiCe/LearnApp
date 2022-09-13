@@ -13,7 +13,7 @@ class Record:
 
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO records (name,course_id,description,record) VALUES (%(name)s,%(course_id)s,%(descrition)s,%(record)s);"
+        query = "INSERT INTO records (name,course_id,description,record) VALUES (%(name)s,%(course_id)s,%(description)s,%(record)s);"
         return connectToMySQL('learn_app').query_db(query, data)
 
     @classmethod

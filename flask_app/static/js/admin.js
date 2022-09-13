@@ -32,7 +32,7 @@ $(document).ready(function() {
             if(id == 'category') {
                 var fields = baseFields + button;
                 $('#form').html(fields);
-                $('#form').attr('action', '/create_category');
+                /* $('#form').attr('action', '/create_category'); */
             }
             else if(id == 'course') {
                 var fields = baseFields + `<div class="form-group my-3">
@@ -45,7 +45,7 @@ $(document).ready(function() {
                                 select
                                 +`</select> </div>`+ button;
                 $('#form').html(fields);
-                $('#form').attr('action', '/create_course');
+                /* $('#form').attr('action', '/create_course'); */
             }
             else if(id == 'record') {
                 var fields = `<div class="form-group my-3">
@@ -66,8 +66,8 @@ $(document).ready(function() {
                                 select
                                 +`</select> </div>`+button;
                 $('#form').html(fields);
-                $('#form').attr('action', '/create_record');
-                $('#form').attr('enctype', 'multipart/form-data');
+                /* $('#form').attr('action', '/create_record'); */
+                /* $('#form').attr('enctype', 'multipart/form-data'); */
             }
         });
     });

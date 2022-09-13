@@ -11,7 +11,7 @@ class Rol:
 
 
     @classmethod
-    def get_roles(cls):
+    def get_all(cls):
         query = "SELECT * FROM roles;"
         results = connectToMySQL('learn_app').query_db(query)
         roles = []
@@ -19,3 +19,10 @@ class Rol:
             roles.append(cls(rol))
             print(roles)
         return roles
+
+    @classmethod
+    def get_by_id(cls, data):
+        data = {'id': data}
+        query = "SELECT rol FROM roles WHERE id = %(id)s;"
+        result = connectToMySQL('learn_app').query_db(query, data)
+        return result[0]['rol']

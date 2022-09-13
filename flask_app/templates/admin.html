@@ -25,7 +25,7 @@
             <div class="row gap-2">
                 <div class="col-12 form-group rounded p-3">
                     <div id="alertMessage"></div>
-                    <form action="/create_category" method="POST" id="form">
+                    <form action="/admin_actions" method="POST" id="form" enctype="multipart/form-data">
                         <div class="mb-3 form-group">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name">
@@ -39,37 +39,39 @@
                 </div>
             </div>
         </div>
+    </main>
+    <div class="container">
         <table class="table table-bordered">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>User name</th>
                     <th>User email</th>
-                    <th> Update rol</th>
+                    <th> Rol </th>
                 </tr>
             </thead>
-            <tbody class="bg-light">
+            <tbody class="text-light">
                 {% for user in users %}
                     <tr>
                         <td>{{user.first_name}} {{user.last_name}}</td>
                         <td>{{user.email}}</td>
                         <td>
-                            <form action="/edit_user">
-                                <label for="rol">Rol</label>
-                                <select id="rol">
-                                    {% for rol in roles %}
-                                        {% if rol.name!='admin '%} <!-- admin? -->
-                                            <option value="rol.id" name="rol_id">{{rol.name}}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
-                                <input type="submit" class="btn">
+                            <form action="/edit_user" class="d-flex justify-content-between">
+                                <div class="form-group">
+                                    <select id="rol" class="form-select">
+                                        <option>{{user.rol}}</option>
+                                        {% for rol in roles %}
+                                            <option value="rol.id" name="rol_id">{{rol.rol}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Rol</button>
                             </form>
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </main>
+    </div>
 {% endblock %}
 {% block footer %}
     <footer id="footer" class="text-center p-3 container-fluid">

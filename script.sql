@@ -162,10 +162,6 @@ CREATE TABLE IF NOT EXISTS `learn_app`.`users_has_courses` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
-ALTER TABLE `learn_app`.`users`
-CHANGE COLUMN `firts_name` `first_name` VARCHAR(100) NOT NULL ;
-
 ALTER TABLE `learn_app`.`records`
 CHANGE COLUMN `record` `record` VARCHAR(250) NOT NULL ;
 
