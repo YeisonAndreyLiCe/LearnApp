@@ -17,7 +17,7 @@
     <main class="text-light d-flex gap-1 flex-wrap p-2">
         <ul class="list-group sidebar">
             <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link"> Add Course</a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" > Add Course</a></li>
             <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" > Add Record </a></li>
         </ul>
         <div class="container form">
@@ -34,6 +34,11 @@
                             <label class="fw-bold" for="category-description">Description</label>
                             <textarea class="form-control" id="category-description" rows="3" name="description" onkeydown="autoGrow(this)" onkeyup="autoGrow(this)"></textarea>
                         </div>
+                        <select class="form-select visually-hidden" aria-label="Default select example" name="course_id" id="courseCategory">
+                            {% for category in categories %}
+                                <option value="{{category.id}}" name="category_id">{{category.name}}</option>
+                            {% endfor %}
+                        </select>
                         <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                     </form>
                 </div>
@@ -49,5 +54,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/text_area_grow.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/text_area_grow.js') }}"></scripts>
 {% endblock %}
