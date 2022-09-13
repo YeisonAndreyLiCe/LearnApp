@@ -24,10 +24,11 @@
             <h3 class="text-center">Add <span id="title">Category</span></h3>
             <div class="row gap-2">
                 <div class="col-12 form-group rounded p-3">
+                    <div id="alertMessage"></div>
                     <form action="/create_category" method="POST" id="form">
                         <div class="mb-3 form-group">
-                            <label for="firs_name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="firs_name" name="first_name">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name">
                         </div>
                         <div class="my-3 form-group">
                             <label class="fw-bold" for="category-description">Description</label>
@@ -45,7 +46,8 @@
         <p>LearnApp &copy; 2022</p>
     </footer>
 {% endblock %}
-{% block script %}
+{% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/text_area_grow.js') }}"></script>
 {% endblock %}

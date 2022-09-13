@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    console.log("admin.js loaded");
     form = $('#form');
     $('.list-group-item').each(function() {
         $(this).click(function() {
@@ -19,6 +18,7 @@ $(document).ready(function() {
             if(id == 'category') {
                 var fields = baseFields + button;
                 $('#form').html(fields);
+                $('#form').attr('action', '/create_category');
             }
             else if(id == 'course') {
                 var fields = baseFields + `<div class="form-group my-3">
@@ -30,6 +30,7 @@ $(document).ready(function() {
                                 <input type="text" class="form-control" id="courseCategory" name="course_category">
                             </div>`+ button;
                 $('#form').html(fields);
+                $('#form').attr('action', '/create_course');
             }
             else if(id == 'record') {
                 var fields = `<div class="form-group my-3">
@@ -50,6 +51,8 @@ $(document).ready(function() {
                                 </select>
                             </div>`+ button;
                 $('#form').html(fields);
+                $('#form').attr('action', '/create_record');
+                $('#form').attr('enctype', 'multipart/form-data');
             }
         });
     });
