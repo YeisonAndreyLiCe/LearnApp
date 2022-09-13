@@ -18,8 +18,9 @@ class Category:
     # Metodo para traer todas las categorias
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM categories"
-        return connectToMySQL('learn_app').query_db(query)
+        query = "SELECT name, id FROM categories"
+        results = connectToMySQL('learn_app').query_db(query)
+        return results
 
     # Metodo para traer la información de una sola categoria
     @classmethod
