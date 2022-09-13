@@ -1,3 +1,8 @@
+function autoGrow(element){
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+    element.style.overflow = "hidden";
+}
 var data 
 var select = ""
 function getInfo(information) {
@@ -36,7 +41,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group my-3">
                                 <label for="courseCategory">Category</label>
-                                <select class="form-select" aria-label="Default select example" name="course_id">`+
+                                <select class="form-select" aria-label="Default select example" name="category_id">`+
                                 select
                                 +`</select> </div>`+ button;
                 $('#form').html(fields);
@@ -53,7 +58,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group my-3">
                                 <label for="recordCourse">Record Info</label>
-                                <input type="file" class="form-control" id="recordCourse" name="course_record">
+                                <input type="file" class="form-control" id="recordCourse" name="record">
                             </div>
                             <div class="form-group my-3">
                                 <label for="courseCategory">Category</label>

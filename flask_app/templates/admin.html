@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-{% block style %}
+{% block styles %}
 {{ super() }}
     <link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
 {% endblock %}
@@ -79,5 +79,4 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/text_area_grow.js') }}"></scripts>
 {% endblock %}

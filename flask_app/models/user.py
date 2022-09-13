@@ -51,7 +51,9 @@ class User:
     def get_by_email(cls,data):
         query='SELECT * FROM users WHERE email = %(email)s;'
         result = connectToMySQL('learn_app').query_db(query, data)
-        return result
+        if result:
+            return cls(result[0])
+        return False
     @classmethod
     def get_by_id(cls, data):
         #id = { 'id': data }
