@@ -1,7 +1,8 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    <main class="container">
+<main class="container">
+    <div>
         <nav class="navbar navbar-dark bg-dark mb-5">
             {% for category in categories %}
             <li>
@@ -9,19 +10,20 @@
             </li>
             {% endfor %}
         </nav>
-        <h1 class="text-white"> Your Courrent Courses</h1>
-        <div class="row gap-3">
-            {% if course_user %}
-                {% for c in course_user %}
-                    <div class="col-12 col-md-4 col-lg-3 text-white rounded-3 p-3 mb-2 borderr border-5">
-                        <h5 class="card-title">{{ c.user_id }}</h5>
-                        <h6 class="card-title">{{ c.name_course }}</h6>
-                        <p class="card-text">{{ c.created_at }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </main>
+    </div>
+    <h2 class="text-white text-center"> Your Courrent Courses</h2>
+    <div class="row gap-1">
+        {% if course_user %}
+            {% for course in course_user %}
+                <div class="col-12 col-md-4 col-lg-3 text-white rounded-3 p-3 mb-2 borderr border-5 ">
+                    <h5 class="card-title">{{ course.user_id }}</h5>
+                    <h6 class="card-title">{{ course.name_course }}</h6>
+                    <p class="card-text">{{ course.created_at }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</main>
 {% endblock %}
 {% block scripts %}
 {% endblock %}

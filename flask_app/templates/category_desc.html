@@ -1,29 +1,25 @@
 {% extends 'index.html' %}
-{% block logotitle %} Categories {% endblock %}
+{% block logotitle %} {{category.name}} Category {% endblock %}
 
 {% block content %}
-<main>
-
-    <h1 class="text-light" >{{category.name}}</h1>
+<main class="continer">
     <div class="container text-light">
-        <h2 class="text-center"> {{category.description}} </h2>
+        <h5 class="text-center"> {{category.description}} </h5>
     </div>
-    <div>
-        <ul>
-            {% for c in courses %}
-            <li>
+    <div class="row">
+        {% for course in courses %}
+            <div class="col-12 col-md-4 col-lg-3">
                 <div class="card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
-                    <h6>Name: <a href="/courses/{{c.id}}">{{c.name}}</a></h6>
-                    <p><strong>Instructor:</strong> {{ c.instructor_name }}</p>
+                    <h6>Name: <a href="/courses/{{course.id}}">{{course.name}}</a></h6>
+                    <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
                     <form action="/enroll" method="post">
                         <input type="hidden" name="user_id" value="{{user.id}}">
-                        <input type="hidden" name="course_id" value="{{c.id}}">
+                        <input type="hidden" name="course_id" value="{{course.id}}">
                         <button type="submit" class="btn btn-primary">Enroll</button>
                     </form>
                 </div>
-            </li>
-            {% endfor %}
-        </ul>
+            </div>
+        {% endfor %}
     </div>
 </main>
 {% endblock %}
