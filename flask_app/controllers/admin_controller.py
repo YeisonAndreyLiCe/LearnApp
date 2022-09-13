@@ -1,3 +1,4 @@
+import json
 from flask_app.models.category import Category
 from flask_app.models.course import Course
 from flask_app.models.user import User
@@ -11,13 +12,10 @@ def admin():
         return redirect('/')
     if session['user_id'] != 1:
         return redirect('/')
-    return render_template('admin.html')
-
-@app.route('/admin/users')
-def admin_users():
-    if 'user_id' not in session:
-        return redirect('/')
-    if session['user_id'] != 1:
-        return redirect('/')
+    categories = Category.get_all()
+    courses = Course.get_all_as_dic()
+    categories = json.dumps(categories)
+    courses = json.dumps(courses)
     users = User.get_all()
-    return render_template('admin_users.html', users=users)
+    return render_template('admin.html', categories=categories, courses=courses, users=users) 
+

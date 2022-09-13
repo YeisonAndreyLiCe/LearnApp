@@ -24,6 +24,13 @@ class Course:
         return courses
 
     @classmethod
+    def get_all_as_dic(cls):
+        query = "SELECT name, id FROM courses;"
+        results = connectToMySQL('learn_app').query_db(query)
+        print(results)
+        return results
+
+    @classmethod
     def save(cls, data):
         query = "INSERT INTO courses (name, description, instructor_id, category_id) VALUES (%(name)s, %(description)s, %(instructor_id)s,%(category_id)s);"
         return connectToMySQL('learn_app').query_db(query, data)

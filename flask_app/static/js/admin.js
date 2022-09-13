@@ -1,3 +1,12 @@
+var data 
+var select = ""
+function getInfo(information) {
+    data = eval(information)
+    select = ""
+    for(var i = 0; i < data.length; i++) {
+        select += `<option value='${data[i].id}'> ${data[i].name}</option>`
+    };
+};
 $(document).ready(function() {
     form = $('#form');
     $('.list-group-item').each(function() {
@@ -27,8 +36,9 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group my-3">
                                 <label for="courseCategory">Category</label>
-                                <input type="text" class="form-control" id="courseCategory" name="course_category">
-                            </div>`+ button;
+                                <select class="form-select" aria-label="Default select example" name="course_id">`+
+                                select
+                                +`</select> </div>`+ button;
                 $('#form').html(fields);
                 $('#form').attr('action', '/create_course');
             }
@@ -46,10 +56,10 @@ $(document).ready(function() {
                                 <input type="file" class="form-control" id="recordCourse" name="course_record">
                             </div>
                             <div class="form-group my-3">
-                                <select class="form-select" aria-label="Default select example" name="course_id">
-                                    <option selected>Select Course</option>
-                                </select>
-                            </div>`+ button;
+                                <label for="courseCategory">Category</label>
+                                <select class="form-select" aria-label="Default select example" name="course_id">`+
+                                select
+                                +`</select> </div>`+button;
                 $('#form').html(fields);
                 $('#form').attr('action', '/create_record');
                 $('#form').attr('enctype', 'multipart/form-data');
