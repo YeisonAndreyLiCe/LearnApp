@@ -10,11 +10,12 @@ from flask_app.models.record import Record
 def admin():
     if 'user_id' not in session:
         return redirect('/')
-    if session['user_id'] != 1:
+    if session['user_id'] ==2 or session['user_id']==1:
         return redirect('/')
     categories = Category.get_all()
     courses = Course.get_all_as_dic()
     categories = json.dumps(categories)
+    print(categories)
     courses = json.dumps(courses)
     users = User.get_all()
     return render_template('admin.html', categories=categories, courses=courses, users=users) 

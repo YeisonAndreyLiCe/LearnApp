@@ -41,7 +41,13 @@ def create_course():
                 data[key] = value
             return jsonify(data)
         else:
-            Course.save(request.form)
+            email = {'email':request.form['instructor_email']}
+            user=User.get_by_email(email)
+            data = {'name': request.form['name'],
+                'description':request.form['description'],
+                'instructor_id':user.id,
+                'category_id':request.form['category_id']}
+            Course.save(data)
             #revisar a donde se va a redireccionar
             return jsonify({'route':'/courses'})
     return redirect('/register_login')
