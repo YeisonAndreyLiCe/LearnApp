@@ -166,8 +166,12 @@ ENGINE = InnoDB;
 ALTER TABLE `learn_app`.`users`
 CHANGE COLUMN `firts_name` `first_name` VARCHAR(100) NOT NULL ;
 
+ALTER TABLE `learn_app`.`records`
+CHANGE COLUMN `record` `record` VARCHAR(250) NOT NULL ;
+
 INSERT INTO `learn_app`.`categories` (`id`, `name`, `description`) VALUES ('2', 'UX', 'Cursos de experiencia de usuario');
 INSERT INTO `learn_app`.`courses` (`name`, `description`, `instructor_id`, `category_id`) VALUES ('U/X desing responsive', 'A course about desin gresponsive', '1', '2');
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
