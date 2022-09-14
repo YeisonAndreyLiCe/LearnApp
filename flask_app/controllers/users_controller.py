@@ -70,15 +70,15 @@ def courses():
     }
     return render_template('courses.html', **context)
 
-# @app.route('/view_user')
-# def view_user():
-#     if not 'user_id' in session:
-#         return redirect('/register_login')
-#     data = {
-#         'id': session['user_id']
-#     }
-#     user = User.user_by_id(data)
-#     return render_template('view_user.html', user=user)
+@app.route('/view_user')
+def view_user():
+    if not 'user_id' in session:
+        return redirect('/register_login')
+    data = {
+        'id': session['user_id']
+    }
+    user = User(User.get_by_id(data))
+    return render_template('view_user.html', user=user)
 
 @app.route('/edit_user')
 def edit_user():

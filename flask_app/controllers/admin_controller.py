@@ -19,10 +19,12 @@ def admin():
     categories = Category.get_all()
     courses = Course.get_all_as_dic()
     context = {
-        'categories':json.dumps(categories),
+        'categories': categories,
+        'categories_json':json.dumps(categories),
         'courses': json.dumps(courses),
         'users': User.get_all(),
-        'roles': Rol.get_all()
+        'roles': Rol.get_all(),
+        'user': User.get_by_id({'id': session['user_id']})
     }
     return render_template('admin.html', **context)
 
@@ -64,4 +66,12 @@ def admin_actions():
             return jsonify({'route': '/courses'})
         Category.save(request.form)  
         return jsonify({'route':'/courses'})    
+    return redirect('/register_login')
+
+@app.route('/update_role', methods=['POST'])
+def update_role():
+    if request.method=='POST':
+        print('*'*100,request.form)
+        User.update_role(request.form)
+        return redirect('/admin')
     return redirect('/register_login')
