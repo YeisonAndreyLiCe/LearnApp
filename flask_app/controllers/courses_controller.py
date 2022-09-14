@@ -3,6 +3,9 @@ from flask_app import app
 from flask_app.models.user import User
 from flask_app.models.course import Course
 from flask_app.models.category import Category
+from flask_app.models.comment import Comment
+from flask_app.models.record import Record
+
 
 @app.route('/categories/<int:id>')
 def course_by_category(id):
@@ -24,9 +27,18 @@ def course(id):
         return redirect('/register_login')
     data={'id':id}
     data_user = {'id':session['user_id']}
-    course=Course.get_by_id(data)
-    user=User.get_by_id(data_user)
-    return render_template('course.html', course=course, user=user)
+    context = {
+        'course':Course.get_by_id(data),
+        'user':User.get_by_id(data_user),
+        'comments':Comment.get_by_course_id(data),
+        'records': Record.get_by_course_id(data)
+    }
+    return render_template('course.html', **context)
+
+@app.route('/create_comment', methods=['POST'])
+def create_comment():
+    Comment.save(request.form)
+    return redirect('courses/'+request.form['course_id'])
 
 @app.route('/enroll', methods=['POST'])
 def enroll_course():

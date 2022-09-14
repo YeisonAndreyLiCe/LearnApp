@@ -62,7 +62,7 @@ $(document).ready(function() {
                                 <input type="file" class="form-control" id="recordCourse" name="record">
                             </div>
                             <div class="form-group my-3">
-                                <label for="courseCategory">Category</label>
+                                <label for="courseCategory">Courses</label>
                                 <select class="form-select" aria-label="Default select example" name="course_id">`+
                                 select
                                 +`</select> </div>`+button;

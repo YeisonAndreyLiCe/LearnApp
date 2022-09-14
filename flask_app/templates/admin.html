@@ -60,7 +60,9 @@
                                     <select id="rol" class="form-select">
                                         <option>{{user.rol}}</option>
                                         {% for rol in roles %}
+                                            {% if user.rol != rol.rol %}
                                             <option value="rol.id" name="rol_id">{{rol.rol}}</option>
+                                            {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>

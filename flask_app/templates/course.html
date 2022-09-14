@@ -1,18 +1,63 @@
 {% extends 'index.html' %}
 {% block content %}
-    <div class="container">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{ course.name }}</h5>
-                <h6 class="card-title">{{ course.instructor_id }}</h6>
-                <p class="card-text">{{ course.description }}</p>
-                <form action="/enroll" method="post">
+    <div class="container row">
+        <div class="col-5">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.name }}</h5>
+                    <h6 class="card-title">{{ course.instructor_id }}</h6>
+                    <p class="card-text">{{ course.description }}</p>
+                    <form action="/enroll" method="post">
+                        <input type="hidden" name="user_id" value="{{user.id}}">
+                        <input type="hidden" name="course_id" value="{{course.id}}">
+                        <button type="submit" class="btn btn-primary">Enroll</button>
+                    </form>
+                </div>
+            </div>
+            <a class="btn btn-info" href="/courses">Back</a>
+            <h5 class="text-light mt-3">Let's comment!</h5>
+            <form action="/create_comment" method="post" class=text-light style="width: 18rem;">
+                <div class="form-group">
+                    <label for="comment_title">Comment title:</label>
+                    <input type="text" id="comment_title" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="rate">Rate:</label>
+                    <input type="number" id="rate" name="rate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="comment">Comment: </label>
+                    <textarea id="comment" name="comment" class="form-control" rows="6"></textarea>
+                </div>
                     <input type="hidden" name="user_id" value="{{user.id}}">
                     <input type="hidden" name="course_id" value="{{course.id}}">
-                    <button type="submit" class="btn btn-primary">Enroll</button>
-                </form>
-            </div>
+                    <input type="submit" value="Comment" class="btn btn-info mt-3">
+            </form>
+            <h5 class="text-light">Comments:</h5>
+            {% for comment in comments %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5>{{comment.first_name}} commented:</h5>
+                        <h5 class="card-title">Comment title: {{ comment.title }}</h5>
+                        <h6 class="card-title">Rate: {{ comment.rate }}</h6>
+                        <p class="card-text">{{ comment.comment }}</p>
+                    </div>
+                </div>
+            {%endfor%}
         </div>
-    <a class="btn btn-info" href="/courses">Back</a>
+        <div class="col-5">
+            <h5 class="text-light">Records</h5>
+            {% for record in records %}
+                <h6 class="text-light">{{record.name}}</h6>
+                <p class="text-light">{{record.description}}</p>
+                <p class="text-light">{{record.record}}</p>
+                {% if '.webm' in record.record or '.mp4' in record.record %}
+                    <video src="../static/records/{{record.record}}" width="320" height="240" controls></video>
+                {% elif '.png' in record.record or '.jpg' in record.record %}
+                    <img src="../static/records/{{record.record}}" style="width: 320px; height: 240px;">
+                {% endif %}
+
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
