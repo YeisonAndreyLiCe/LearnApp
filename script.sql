@@ -162,12 +162,16 @@ CREATE TABLE IF NOT EXISTS `learn_app`.`users_has_courses` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+ALTER TABLE `learn_app`.`records`
+CHANGE COLUMN `record` `record` VARCHAR(250) NOT NULL ;
 
-ALTER TABLE `learn_app`.`users`
-CHANGE COLUMN `firts_name` `first_name` VARCHAR(100) NOT NULL ;
-
+INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('1', 'Admin');
+INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('2', 'Instructor');
+INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('3', 'Student');
 INSERT INTO `learn_app`.`categories` (`id`, `name`, `description`) VALUES ('2', 'UX', 'Cursos de experiencia de usuario');
 INSERT INTO `learn_app`.`courses` (`name`, `description`, `instructor_id`, `category_id`) VALUES ('U/X desing responsive', 'A course about desin gresponsive', '1', '2');
+
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

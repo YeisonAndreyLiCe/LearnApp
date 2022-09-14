@@ -10,10 +10,13 @@ def course_by_category(id):
         return redirect('/register_login')
     data = {'id':id}
     data_user = {'id':session['user_id']}
-    courses=Course.get_by_category_id(data)
-    category = Category.get_by_id(data)
-    user=User.get_by_id(data_user)
-    return render_template('category_desc.html', courses=courses, category=category, user=user)
+    context = {
+        'courses':Course.get_by_category_id(data),
+        'category' : Category.get_by_id(data),
+        'user':User.get_by_id(data_user)
+    }
+    
+    return render_template('category_desc.html', **context)
 
 @app.route('/courses/<int:id>')
 def course(id):
@@ -28,7 +31,7 @@ def course(id):
 @app.route('/enroll', methods=['POST'])
 def enroll_course():
     User.enroll_course(request.form)
-    return('/courses') 
+    return redirect('/courses') 
 
 
 @app.route('/create_course', methods=['POST'])

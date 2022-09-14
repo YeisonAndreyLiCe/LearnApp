@@ -47,9 +47,9 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     user = User.get_by_email(request.form)
+    print(user)
     if not user: 
         return jsonify({'message':'Wrong email'})
-    #user = User(user[0])
     if not bcrypt.check_password_hash(user.password, request.form['password']):
         return jsonify({'message':'Wrong password'})
     session['user_id']=user.id
@@ -62,17 +62,13 @@ def courses():
     data = {
         'id': session['user_id']
     }
-    user = User.get_by_id(data)
-    users = User.get_all()
-    # get all courses
-    courses = Course.get_all()
-    # gel all course of user
-    course_user = User_has_Courses.get_by_user_id(data)
-    print('*'*50)
-    print(course_user)
-    categories = Category.get_all()
-    print(categories)
-    return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses, categories=categories)
+    context = {
+        'user' : User.get_by_id(data),
+        'course_user' : User_has_Courses.get_by_user_id(data),
+        'categories' : Category.get_all(),
+        'courses' : Course.get_all()
+    }
+    return render_template('courses.html', **context)
 
 # @app.route('/view_user')
 # def view_user():
@@ -129,21 +125,6 @@ def update_password():
     }
     User.update_password(form)
     return redirect('/courses')
-
-@app.route('/admin/<string:filter>')
-def admin_create(filter):
-    categories = Category.get_all()
-    users=User.get_all()
-    if (filter=='category'):
-        is_filter='category'
-    elif(filter=='course'):
-        is_filter='course'
-    elif(filter=='user'):
-        #roles=Rol.get_all()
-        is_filter='user'
-    else:
-        is_filter='record'
-    return render_template('admin.html',is_filter=is_filter, categories=categories, users=users)
 
 @app.route('/logout')
 def logout():

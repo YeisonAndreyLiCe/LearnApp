@@ -14,9 +14,7 @@ class User_has_Courses:
     def get_by_user_id(cls, data):
         query = "SELECT c.name as name_course, u.* FROM users_has_courses as u LEFT JOIN courses as c on u.course_id = c.id where u.user_id = %(id)s"
         results = connectToMySQL('learn_app').query_db(query, data)
-        print(f"coursos del usuario: {results}")
         if results:
             courses = [cls(course) for course in results]
-            print(courses)
             return courses
         return False

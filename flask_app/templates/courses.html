@@ -1,7 +1,15 @@
 {% extends 'index.html' %}
-
+{% block admin %}
+    {{super()}}
+    {% if user.rol_id==1 %}
+        <li class="nav-item">
+            <a class="nav-link" href="/admin">Admin</a>
+        </li>
+    {% endif %}
+{% endblock %}
 {% block content %}
-    <main class="container">
+<main class="container">
+    <div>
         <nav class="navbar navbar-dark bg-dark mb-5">
             {% for category in categories %}
             <li>
@@ -9,26 +17,21 @@
             </li>
             {% endfor %}
         </nav>
-        {% if user.id == 6%}
-            <h4 class="text-light">Create +</h4>
-            <a href="admin/category">Category</a>
-            <a href="admin/course">Course</a>
-            <a href="admin/record">Record</a>
-            <a href="admin/user">User</a>
+    </div>
+    <h2 class="text-white text-center"> Your Current Courses</h2>
+    <div class="row gap-1">
+        {% if course_user %}
+            {% for course in course_user %}
+                <div class="col-12 col-md-4 col-lg-3 text-white rounded-3 p-3 mb-2 borderr border-5 ">
+                    <h5 class="card-title">{{ course.user_id }}</h5>
+                    <h6 class="card-title">{{ course.name_course }}</h6>
+                    <p class="card-text">{{ course.created_at }}</p>
+                </div>
+            {% endfor %}
         {% endif %}
-        <h1 class="text-white"> Your Courrent Courses</h1>
-        <div class="row gap-3">
-            {% if course_user %}
-                {% for c in course_user %}
-                    <div class="col-12 col-md-4 col-lg-3 text-white rounded-3 p-3 mb-2 borderr border-5">
-                        <h5 class="card-title">{{ c.user_id }}</h5>
-                        <h6 class="card-title">{{ c.name_course }}</h6>
-                        <p class="card-text">{{ c.created_at }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </main>
+    </div>
+</main>
 {% endblock %}
 {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 {% endblock %}

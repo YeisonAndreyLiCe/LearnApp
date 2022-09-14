@@ -2,6 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from datetime import datetime, timedelta
 import re
 from flask_app.models.course import Course
+from flask_app.models.rol import Rol
 
 re_password = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
 re_email = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -17,6 +18,7 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.rol = Rol.get_by_id(self.rol_id)
         self.courses = []
 
     @classmethod
