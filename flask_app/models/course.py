@@ -38,7 +38,7 @@ class Course:
     @classmethod
     def get_by_id(cls, data):
         #id = {'id': data}
-        query = "SELECT u.first_name as instructor_name, c.* FROM courses as c left join users as u on c.instructor_id = u.id WHERE id = %(id)s;"
+        query = "SELECT u.first_name as instructor_name, c.* FROM courses as c left join users as u on c.instructor_id = u.id WHERE c.id = %(id)s;"
         result = connectToMySQL('learn_app').query_db(query, data)
         print(f" resultados mostrados:{result}")
         return cls(result[0])

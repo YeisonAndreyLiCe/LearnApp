@@ -6,11 +6,12 @@ function autoGrow(element){
 var data 
 var select = ""
 function getInfo(information) {
-    data = eval(information)
-    select = ""
+    data = eval(information);
+    select = "";
     for(var i = 0; i < data.length; i++) {
-        select += `<option value='${data[i].id}'> ${data[i].name}</option>`
+        select += `<option value='${data[i].id}'> ${data[i].name}</option>`;
     };
+    console.log(select)
 };
 $(document).ready(function() {
     form = $('#form');
@@ -61,7 +62,7 @@ $(document).ready(function() {
                                 <input type="file" class="form-control" id="recordCourse" name="record">
                             </div>
                             <div class="form-group my-3">
-                                <label for="courseCategory">Category</label>
+                                <label for="courseCategory">Courses</label>
                                 <select class="form-select" aria-label="Default select example" name="course_id">`+
                                 select
                                 +`</select> </div>`+button;

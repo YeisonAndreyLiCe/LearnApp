@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models.user import User
 
 class Comment:
     def __init__(self, data):
@@ -10,6 +11,7 @@ class Comment:
         self.course_id = data['course_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.first_name = data['first_name']
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM comments;"
@@ -39,9 +41,10 @@ class Comment:
         return connectToMySQL('learn_app').query_db(query, id)
     @classmethod
     def get_by_course_id(cls, data):
-        id = { 'id': data }
-        query = "SELECT * FROM comments WHERE course_id = %(id)s;"
-        results = connectToMySQL('learn_app').query_db(query, id)
+        #id = { 'id': data }
+        query = "SELECT comments.*,users.first_name AS first_name FROM comments LEFT JOIN users ON users.id=comments.user_id WHERE course_id = %(id)s;"
+        results = connectToMySQL('learn_app').query_db(query, data)
+        print(results)
         comments = [cls(comment) for comment in results]
         return comments
     @classmethod

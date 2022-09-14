@@ -47,7 +47,7 @@ class Category:
     def validate(data):
         errors = {}
         if len(data['name']) < 2:
-            errors['name'] = 'The field name should have at least 2 characters'
+            errors['name'] = 'The field name should have at least 2 characters :|'
         if len(data['description']) < 2:
-            errors['description'] = 'The field description should have at least 2 characters'
+            errors['description'] = 'The field description should have at least 2 characters :1'
         return errors

@@ -63,6 +63,12 @@ class User:
         result = connectToMySQL('learn_app').query_db(query, data)
         return result[0]
     @classmethod
+    def get_by_id_comment(cls, data):
+        #id = { 'id': data }
+        query = "SELECT * FROM users WHERE id = %(id)s;"
+        result = connectToMySQL('learn_app').query_db(query, data)
+        return cls(result[0])
+    @classmethod
     def update(cls, data):
         query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
@@ -75,7 +81,6 @@ class User:
         id = { 'id': data }
         query = "DELETE FROM users WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, id)
-
     @staticmethod
     def validate(data):
         errors={}

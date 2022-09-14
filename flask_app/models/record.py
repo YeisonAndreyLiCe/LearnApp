@@ -32,6 +32,15 @@ class Record:
         query = "SELECT * FROM records WHERE id = %(id)s;"
         result = connectToMySQL('learn_app').query_db(query, id)
         return cls(result[0])
+    
+    @classmethod
+    def get_by_course_id(cls, data):
+        #id = { 'id': data }
+        query = "SELECT * FROM records WHERE course_id = %(id)s;"
+        results = connectToMySQL('learn_app').query_db(query, data)
+        records = [cls(record) for record in results]
+        return records
+    
 
     @classmethod
     def update(cls, data):
