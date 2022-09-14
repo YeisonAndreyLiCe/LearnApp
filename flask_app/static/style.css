@@ -42,3 +42,25 @@ body{
     --bs-text-opacity: 1;
     color: #e9ecef!important;
 }
+
+a {
+    color: #f7f7f7;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: #f4f5f7;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+.bg-dark {
+    --bs-bg-opacity: 1;
+    background-color: rgb(49, 49, 49)!important;
+    width: 100% !important;
+}
+
+.text-danger {
+    --bs-text-opacity: 1;
+    color: #86ee60!important;
+}
