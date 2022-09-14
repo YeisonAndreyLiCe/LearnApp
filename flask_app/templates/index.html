@@ -13,40 +13,39 @@
     {% endblock %}
 </head>
 <body class="fondo">
-    {% block navbar %}
-    <div class="container">
-        {% if 'user_id' in session %}
-            <ul class="nav nav-pills d-flex justify-content-between">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-                    <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-danger" href="/logout">Logout</a>
-                </li>            
-                <li class="nav-item">
-                    <a class="nav-link" href="/courses">Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="/admin">Admin</a>
-                </li>
-            </ul>
-        {% endif %}
-    </div>
-    {% endblock %}
     {% block header %}
-    <div class="d-flex flex-row align-items-center justify-content-center mb-5">
+    <div class="d-flex flex-row align-items-center justify-content-center mb-2">
         <img src="{{ url_for('static', filename='images/logo.png') }}" class="img-fluid" width="150px" height="150px">
         <h2 class="text-info"> {% block logotitle %} Welcome To Learn App {% endblock %}</h2>
+    </div>
+    {% endblock %}
+    {% block navbar %}
+    <div class="mb-4">
+        {% if 'user_id' in session %}
+            <ul class="nav nav-pills bg-dark d-flex flex-row align-items-center justify-content-around mb-5 ">
+                <li>
+                    <a href="/courses" class="mx-2">
+                        <img src="{{url_for('static' , filename='images/logo.png' )}}" alt="Learn app logo" width="40">
+                    </a>
+                </li>
+                <li class="nav-item dropdown fs-4">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu text-withe">
+                        {% for category in categories %}
+                            <li><a class="dropdown-item text-withe" href="/categories/{{category.id}}">{{category.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </li>
+                <li class="fs-4">
+                    <a class="text-withe" href="/courses">Courses</a>
+                </li>
+                <li class="fs-4">
+                    <a class="text-danger" href="/logout">Logout</a>
+                </li>  
+                {% block admin %}
+                {% endblock %}
+            </ul>
+        {% endif %}
     </div>
     {% endblock %}
     {% block content %}{% endblock %}

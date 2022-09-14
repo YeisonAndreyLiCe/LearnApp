@@ -62,17 +62,13 @@ def courses():
     data = {
         'id': session['user_id']
     }
-    user = User.get_by_id(data)
-    users = User.get_all()
-    # get all courses
-    courses = Course.get_all()
-    # gel all course of user
-    course_user = User_has_Courses.get_by_user_id(data)
-    print('*'*50)
-    print(course_user)
-    categories = Category.get_all()
-    print(categories)
-    return render_template('courses.html', user=user, users=users, course_user=course_user, courses=courses, categories=categories)
+    context = {
+        'user' : User.get_by_id(data),
+        'course_user' : User_has_Courses.get_by_user_id(data),
+        'categories' : Category.get_all(),
+        'courses' : Course.get_all()
+    }
+    return render_template('courses.html', **context)
 
 # @app.route('/view_user')
 # def view_user():

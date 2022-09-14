@@ -14,8 +14,8 @@ import os
 def admin():
     if 'user_id' not in session:
         return redirect('/')
-    if session['user_id'] != 1:
-        return redirect('/')
+    #if session['user_id'] ==4 or session['user_id']==1:
+        #return redirect('/')
     categories = Category.get_all()
     courses = Course.get_all_as_dic()
     context = {
