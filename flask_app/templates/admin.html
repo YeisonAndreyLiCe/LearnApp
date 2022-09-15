@@ -14,13 +14,13 @@
     </header>
 {% endblock %}
 {% block content %}
-    <main class="text-light d-flex gap-1 flex-wrap p-2">
+    <main class=" gap-5 d-flex flex-row align-items-start justify-content-around p-2">
         <ul class="list-group sidebar">
-            <li class="list-group-item list-group-item-action list-group-item-info  text-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info text-dark " id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories_json}}')"> Add Course</a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info text-dark " id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories_json}}')"> Add Course</a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
         </ul>
-        <div class="container form">
+        <div class="flex-fill text-light rounded-3 p-3 mb-2 border border-5">
             <h3 class="text-center">Add <span id="title">Category</span></h3>
             <div class="row gap-2">
                 <div class="col-12 form-group rounded p-3">
@@ -39,42 +39,43 @@
                 </div>
             </div>
         </div>
-    </main>
-    <div class="container">
-        <table class="table table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>User name</th>
-                    <th>User email</th>
-                    <th> Rol </th>
-                </tr>
-            </thead>
-            <tbody class="text-light">
-                {% for user in users %}
+        <div class="rounded-3 p-3 mb-2 border border-5">
+            <table class="table">
+                <thead class="table-dark">
                     <tr>
-                        <td>{{user.first_name}} {{user.last_name}}</td>
-                        <td>{{user.email}}</td>
-                        <td>
-                            <form action="/update_role" class="d-flex justify-content-between" method="post">
-                                <div class="form-group">
-                                    <select class="form-select" name="rol_id">
-                                        <option>{{user.rol}}</option>
-                                        {% for rol in roles %}
-                                            {% if user.rol != rol.rol %}
-                                            <option value="{{rol.id}}">{{rol.rol}}</option>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </select>
-                                    <input type="hidden" name="id" value="{{user.id}}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Update Rol</button>
-                            </form>
-                        </td>
+                        <th>User name</th>
+                        <th>User email</th>
+                        <th> Rol </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="text-light">
+                    {% for user in users %}
+                        <tr>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td>{{user.email}}</td>
+                            <td>
+                                <form action="/update_role" class="d-flex justify-content-between" method="post">
+                                    <div class="form-group">
+                                        <select class="form-select" name="rol_id">
+                                            <option>{{user.rol}}</option>
+                                            {% for rol in roles %}
+                                                {% if user.rol != rol.rol %}
+                                                <option value="{{rol.id}}">{{rol.rol}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <input type="hidden" name="id" value="{{user.id}}">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update Rol</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
 {% endblock %}
 {% block footer %}
     <footer id="footer" class="text-center p-3 container-fluid">

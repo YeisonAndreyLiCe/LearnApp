@@ -48,10 +48,23 @@ a {
     text-decoration: none;
 }
 
+a:hover {
+    color: #86ee60;
+}
+
 .nav-link {
     color: #f4f5f7;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    --bs-nav-link-hover-color: #86ee60;
+}
+
+.nav {
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: var(--bs-link-color);
+    --bs-nav-link-hover-color: #86ee60;
 }
 
 .bg-dark {
