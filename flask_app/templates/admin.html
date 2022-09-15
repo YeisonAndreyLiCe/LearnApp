@@ -16,9 +16,9 @@
 {% block content %}
     <main class="text-light d-flex gap-1 flex-wrap p-2">
         <ul class="list-group sidebar">
-            <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories}}')"> Add Course</a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info  text-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info text-dark " id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories_json}}')"> Add Course</a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info text-dark " id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
         </ul>
         <div class="container form">
             <h3 class="text-center">Add <span id="title">Category</span></h3>
@@ -55,16 +55,17 @@
                         <td>{{user.first_name}} {{user.last_name}}</td>
                         <td>{{user.email}}</td>
                         <td>
-                            <form action="/edit_user" class="d-flex justify-content-between">
+                            <form action="/update_role" class="d-flex justify-content-between" method="post">
                                 <div class="form-group">
-                                    <select id="rol" class="form-select">
+                                    <select class="form-select" name="rol_id">
                                         <option>{{user.rol}}</option>
                                         {% for rol in roles %}
                                             {% if user.rol != rol.rol %}
-                                            <option value="rol.id" name="rol_id">{{rol.rol}}</option>
+                                            <option value="{{rol.id}}">{{rol.rol}}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
+                                    <input type="hidden" name="id" value="{{user.id}}">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Update Rol</button>
                             </form>

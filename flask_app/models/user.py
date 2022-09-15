@@ -59,6 +59,15 @@ class User:
         query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
+    def update_password(cls, data):
+        query = "UPDATE users SET password = %(password)s WHERE id = %(id)s;"
+        return connectToMySQL('learn_app').query_db(query, data)
+    @classmethod
+    def update_role(cls, data):
+        data = {'rol_id':data['rol_id'],'id': data['id']}
+        query = "UPDATE users SET rol_id = %(rol_id)s WHERE id = %(id)s;"
+        return connectToMySQL('learn_app').query_db(query, data)
+    @classmethod
     def update_password(cls,data):
         query = "UPDATE users SET password=%(password)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)

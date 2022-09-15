@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block logotitle %} User Information {% endblock %}
+{% block content %}
+<main id="main" class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">User Information</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" value="{{ user.first_name }} {{user.last_name}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name='email' value="{{ user.email }}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6" id="change_password">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

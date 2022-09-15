@@ -17,7 +17,8 @@ def course_by_category(id):
     context = {
         'courses':Course.get_by_category_id(data),
         'category' : Category.get_by_id(data),
-        'user':User.get_by_id(data_user)
+        'user':User.get_by_id(data_user),
+        'categories':Category.get_all(),
     }
     
     return render_template('category_desc.html', **context)
@@ -32,7 +33,8 @@ def course(id):
         'course':Course.get_by_id(data),
         'user':User.get_by_id(data_user),
         'comments':Comment.get_by_course_id(data),
-        'records': Record.get_by_course_id(data)
+        'records': Record.get_by_course_id(data),
+        'categories':Category.get_all(),
     }
     return render_template('course.html', **context)
 

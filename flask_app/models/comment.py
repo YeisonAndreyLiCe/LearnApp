@@ -63,7 +63,7 @@ class Comment:
             errors['comment'] = 'The field comment should have at least 10 characters'
         if len(data['rate']) < 1:
             errors['rate'] = 'The course should be rated'
-        if data['rate']<1 or data['rate']>5:
+        if int(data['rate'])<1 or int(data['rate'])>5:
             errors['rate_range'] = 'Rate should be from 1 to 5'
         query='SELECT * FROM comments WHERE course_id=%(course_id)s and user_id=%(user_id)s'
         result=connectToMySQL('learn_app').query_db(query,data)
