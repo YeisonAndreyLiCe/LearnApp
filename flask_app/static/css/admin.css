@@ -15,8 +15,8 @@ body{
     background-color: #1e5372;
 }
 .sidebar{
-    flex-grow: 1;
-    flex-basis: 15rem;
+    flex-grow: 0;
+    flex-basis: 10rem;
 }
 
 .form{
@@ -26,8 +26,8 @@ body{
 }
 
 .sidebar ul {
-    flex-grow: 1;
-    flex-basis: 15rem;
+    flex-grow: 0.5;
+    flex-basis: 10rem;
 }
 
 #footer{
@@ -37,4 +37,9 @@ body{
     width: 100%;
     line-height: 2.5rem;
     color: #fff;
+}
+
+
+.list-group-item-info .nav-link{
+    color: black;
 }
