@@ -15,6 +15,11 @@ function getInfo(information) {
 };
 $(document).ready(function() {
     form = $('#form');
+    $('.list-group-item-info .nav-link').each(function(){
+        $(this).click(function(){
+            $('.active .nav-link').addClass('text-info');
+        });
+    });
     $('.list-group-item').each(function() {
         $(this).click(function() {
             $(this).addClass('active');
