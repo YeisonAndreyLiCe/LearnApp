@@ -12,7 +12,10 @@
                 <div class="card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
                     <h6>Name: <a href="/courses/{{course.id}}">{{course.name}}</a></h6>
                     <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
-                    <form action="/enroll" method="post">
+                    <div id="alertMessage">
+
+                    </div>
+                    <form id="form" action="/enroll" method="post">
                         <input type="hidden" name="user_id" value="{{user.id}}">
                         <input type="hidden" name="course_id" value="{{course.id}}">
                         <button type="submit" class="btn btn-primary">Enroll</button>
@@ -22,4 +25,8 @@
         {% endfor %}
     </div>
 </main>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/ajax_validation.js') }}"></script>
 {% endblock %}

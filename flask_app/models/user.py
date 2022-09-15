@@ -21,21 +21,7 @@ class User:
         self.rol = Rol.get_by_id(self.rol_id)
         self.courses = []
 
-    @classmethod
-    def get_enrolled_courses(cls, data):
-        data = {'user_id': data} 
-        query = "SELECT * FROM users_has_courses WHERE user_id = %(user_id)s;"
-        #results = connectToMySQL('learn_app').query_db(query, self.__dict__)
-        results = connectToMySQL('learn_app').query_db(query, data)
-        print('*'*100)
-        print(results)
-        courses = [Course(result) for result in results]
-        return courses
-
-    @classmethod
-    def enroll_course(cls, data):
-        query = "INSERT INTO users_has_courses (user_id, course_id) VALUES (%(user_id)s, %(course_id)s);"
-        return connectToMySQL('learn_app').query_db(query, data)
+    
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
