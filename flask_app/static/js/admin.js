@@ -11,13 +11,15 @@ function getInfo(information) {
     for(var i = 0; i < data.length; i++) {
         select += `<option value='${data[i].id}'> ${data[i].name}</option>`;
     };
-    console.log(select)
 };
 $(document).ready(function() {
     form = $('#form');
     $('.list-group-item-info .nav-link').each(function(){
         $(this).click(function(){
-            $('.active .nav-link').addClass('text-info');
+            $(this).addClass('text-info');
+            $(this).removeClass('text-dark');
+            $(this).parent().siblings().children().removeClass('text-info');
+            $(this).parent().siblings().children().addClass('text-dark');
         });
     });
     $('.list-group-item').each(function() {

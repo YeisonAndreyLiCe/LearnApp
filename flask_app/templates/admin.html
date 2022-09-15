@@ -9,14 +9,14 @@
             <a href="#" class="mx-2">
                 <img src="{{url_for('static' , filename='images/logo.png' )}}" alt="Learn app logo" width="40">
             </a>
-            <h4 class="text-light mx-2">Admin</h4>
+            <h3 class="text-info mx-2">You're Admin Mode! </h3>
         </nav>
     </header>
 {% endblock %}
 {% block content %}
     <main class=" gap-5 d-flex flex-row align-items-start justify-content-around p-2">
         <ul class="list-group sidebar">
-            <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link"> Add category </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link text-info"> Add category </a></li>
             <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories_json}}')"> Add Course</a></li>
             <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
         </ul>
@@ -45,7 +45,7 @@
                     <tr>
                         <th>User name</th>
                         <th>User email</th>
-                        <th> Rol </th>
+                        <th> Role </th>
                     </tr>
                 </thead>
                 <tbody class="text-light">
@@ -56,17 +56,17 @@
                             <td>
                                 <form action="/update_role" class="d-flex justify-content-between" method="post">
                                     <div class="form-group">
-                                        <select class="form-select" name="rol_id">
-                                            <option>{{user.rol}}</option>
-                                            {% for rol in roles %}
-                                                {% if user.rol != rol.rol %}
-                                                <option value="{{rol.id}}">{{rol.rol}}</option>
+                                        <select class="form-select" name="role_id">
+                                            <option>{{user.role}}</option>
+                                            {% for role in roles %}
+                                                {% if user.role != role.role %}
+                                                <option value="{{role.id}}">{{role.role}}</option>
                                                 {% endif %}
                                             {% endfor %}
                                         </select>
                                         <input type="hidden" name="id" value="{{user.id}}">
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Update Rol</button>
+                                    <button type="submit" class="btn btn-primary">Update Role</button>
                                 </form>
                             </td>
                         </tr>
@@ -76,11 +76,6 @@
         </div>
     </main>
 
-{% endblock %}
-{% block footer %}
-    <footer id="footer" class="text-center p-3 container-fluid">
-        <p>LearnApp &copy; 2022</p>
-    </footer>
 {% endblock %}
 {% block scripts %}
     {{ super() }}
