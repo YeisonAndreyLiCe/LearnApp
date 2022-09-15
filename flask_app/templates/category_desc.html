@@ -8,9 +8,9 @@
     </div>
     <div class="row">
         {% for course in courses %}
-            <div class="col-12 col-md-4 col-lg-3">
-                <div class="card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
-                    <h6>Name: <a href="/courses/{{course.id}}">{{course.name}}</a></h6>
+            <div class="col-12 col-md-4 col-lg-3 ">
+                <div class=" rounded-3 p-3 mb-2 border border-5 card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
+                    <h6><strong>Name:</strong> <a class="text-success" href="/courses/{{course.id}}">{{course.name}}</a></h6>
                     <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
                     <div id="alertMessage">
 
