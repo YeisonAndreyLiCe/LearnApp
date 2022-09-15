@@ -28,11 +28,11 @@
         <div class="col-3">
             <div class="card rounded-3 p-3 mb-2 border border-5">
                 <div class="card-body">
+                    <img src="../static/records/{{course.image}}" alt="category image" class="img-fluid">
                     <h5 class="card-title">{{ course.name }}</h5>
                     <h6 class="card-title">Instructor name: {{ course.instructor_name }}</h6>
                     <p class="card-text">{{ course.description }}</p>
                     <div id="alertMessage_login">
-
                     </div>
                     <form id="form_login" action="/enroll" method="post">
                         <input type="hidden" name="user_id" value="{{user.id}}">

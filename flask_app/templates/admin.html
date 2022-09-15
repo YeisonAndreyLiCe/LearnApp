@@ -17,8 +17,8 @@
     <main class=" gap-5 d-flex flex-row align-items-start justify-content-around p-2">
         <ul class="list-group sidebar">
             <li class="list-group-item list-group-item-action list-group-item-info active" aria-current="true" id="category"> <a href="#" class="nav-link text-info"> Add category </a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="course"><a href="#" class="nav-link" onclick="getInfo('{{categories_json}}')"> Add Course</a></li>
-            <li class="list-group-item list-group-item-action list-group-item-info" id="record"><a href="#" class="nav-link" onclick="getInfo('{{courses}}')"> Add Record </a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="course" onclick="getInfo('{{categories_json}}')"><a href="#" class="nav-link"> Add Course</a></li>
+            <li class="list-group-item list-group-item-action list-group-item-info" id="record" onclick="getInfo('{{courses}}')"><a href="#" class="nav-link"> Add Record </a></li>
         </ul>
         <div class="flex-fill text-light rounded-3 p-3 mb-2 border border-5">
             <h3 class="text-center">Add <span id="title">Category</span></h3>
@@ -33,6 +33,10 @@
                         <div class="my-3 form-group">
                             <label class="fw-bold" for="category-description">Description</label>
                             <textarea class="form-control" id="category-description" rows="3" name="description"></textarea>
+                        </div>
+                        <div class="form-group my-3">
+                            <label for="imageCategory">Category Image</label>
+                            <input type="file" class="form-control" id="imageCategory" name="image">
                         </div>
                         <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                     </form>

@@ -12,6 +12,7 @@ class Course:
         self.updated_at = data['updated_at']
         self.instructor = user.User.get_by_id(self.instructor_id)
         self.category = category.Category.get_by_id(self.category_id)
+        self.image = data['image']
 
     @classmethod
     def get_all(cls):
@@ -28,7 +29,7 @@ class Course:
         return results
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO courses (name, description, instructor_id, category_id) VALUES (%(name)s, %(description)s, %(instructor_id)s,%(category_id)s);"
+        query = "INSERT INTO courses (name, description, instructor_id, category_id, image) VALUES (%(name)s, %(description)s, %(instructor_id)s,%(category_id)s, %(image)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def get_by_id(cls, data):
@@ -50,9 +51,12 @@ class Course:
         return connectToMySQL('learn_app').query_db(query, id)
     @classmethod
     def get_by_category_id(cls, data):
-        query = "SELECT users.first_name AS instructor_name, courses.* FROM courses LEFT JOIN users ON course.instructor_id = users.id WHERE category_id = %(id)s;"
+        data = {'id': data}
+        query = "SELECT users.first_name AS instructor_name, courses.* FROM courses LEFT JOIN users ON courses.instructor_id = users.id WHERE category_id = %(id)s;"
         results = connectToMySQL('learn_app').query_db(query, data)
-        return [cls(course) for course in results]
+        if results:
+            return [cls(result) for result in results]
+        return False
     @classmethod
     def get_by_user_id(cls, data):
         query = "SELECT users.first_name AS instructor_name, courses.* FROM courses LEFT JOIN users ON courses.instructor_id = users.id WHERE courses.instructor_id = %(id)s;"

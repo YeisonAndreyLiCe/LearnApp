@@ -2,7 +2,7 @@
 {% block logo_title %} {{category.name}} Category {% endblock %}
 
 {% block content %}
-<main class="continer">
+<main class="continer mb-3">
     <div class="container text-light">
         <h5 class="text-center"> {{category.description}} </h5>
     </div>
@@ -10,15 +10,10 @@
         {% if courses %}
             {% for course in courses %}
             <div class="col-12 col-md-4 col-lg-3 ">
-                <div class=" rounded-3 p-3 mb-2 border border-5 card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
+                <div class=" rounded-3 p-3 mb-2 border border-5 card bg-light mx-3 my-3 py-3 px-3">
+                    <img src="../static/records/{{course.image}}" alt="category image" class="img-fluid">
                     <h6><strong>Name:</strong> <a class="text-success" href="/courses/{{course.id}}">{{course.name}}</a></h6>
                     <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
-                    <div id="alertMessage"></div>
-                    <form id="form" action="/enroll" method="post">
-                        <input type="hidden" name="user_id" value="{{user.id}}">
-                        <input type="hidden" name="course_id" value="{{course.id}}">
-                        <button type="submit" class="btn btn-primary">Enroll</button>
-                    </form>
                 </div>
             </div>
             {% endfor %}
@@ -26,7 +21,4 @@
     </div>
 </main>
 {% endblock %}
-{% block scripts %}
-{{ super() }}
-    <script src="{{ url_for('static', filename='js/ajax_validation.js') }}"></script>
-{% endblock %}
+
