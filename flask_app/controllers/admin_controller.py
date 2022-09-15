@@ -1,12 +1,11 @@
 import json
 from flask_app.models.category import Category
 from flask_app.models.course import Course
-from flask_app.models.rol import Rol
+from flask_app.models.role import Role
 from flask_app.models.user import User
 from flask import render_template, request, redirect, session, flash, jsonify
 from flask_app import app
 from flask_app.models.record import Record
-from flask_app.models.rol import Rol
 from werkzeug.utils import secure_filename
 import os
 
@@ -14,26 +13,25 @@ import os
 def admin():
     if 'user_id' not in session:
         return redirect('/')
-    user = User.get_by_id({'id': session['user_id']})
-    print(user)
-    if user['rol_id']!=1:
+    user = User.get_by_id(session['user_id'])
+    if user.role_id!=1:
         return redirect('/logout')
-    categories = Category.get_all()
+    categories = Category.get_all_as_dic()
     courses = Course.get_all_as_dic()
     context = {
         'categories': categories,
         'categories_json':json.dumps(categories),
         'courses': json.dumps(courses),
         'users': User.get_all(),
-        'roles': Rol.get_all(),
-        'user': User.get_by_id({'id': session['user_id']})
+        'roles': Role.get_all(),
+        'user': User.get_by_id( session['user_id']),
     }
+    print(Role.get_all())
     return render_template('admin.html', **context)
 
 @app.route('/admin_actions', methods=['POST'])
 def admin_actions():
     if request.method=='POST':
-        print('*'*100,request.form, request.files)
         errors = Category.validate(request.form)
         if errors:
             data = {}
@@ -73,7 +71,6 @@ def admin_actions():
 @app.route('/update_role', methods=['POST'])
 def update_role():
     if request.method=='POST':
-        print('*'*100,request.form)
         User.update_role(request.form)
         return redirect('/admin')
     return redirect('/register_login')

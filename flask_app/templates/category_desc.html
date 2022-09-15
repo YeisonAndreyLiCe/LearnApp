@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-{% block logotitle %} {{category.name}} Category {% endblock %}
+{% block logo_title %} {{category.name}} Category {% endblock %}
 
 {% block content %}
 <main class="continer">
@@ -7,14 +7,13 @@
         <h5 class="text-center"> {{category.description}} </h5>
     </div>
     <div class="row">
-        {% for course in courses %}
+        {% if courses %}
+            {% for course in courses %}
             <div class="col-12 col-md-4 col-lg-3 ">
                 <div class=" rounded-3 p-3 mb-2 border border-5 card bg-light mx-3 my-3 py-3 px-3" style="width: 18rem;">
                     <h6><strong>Name:</strong> <a class="text-success" href="/courses/{{course.id}}">{{course.name}}</a></h6>
                     <p><strong>Instructor:</strong> {{ course.instructor_name }}</p>
-                    <div id="alertMessage">
-
-                    </div>
+                    <div id="alertMessage"></div>
                     <form id="form" action="/enroll" method="post">
                         <input type="hidden" name="user_id" value="{{user.id}}">
                         <input type="hidden" name="course_id" value="{{course.id}}">
@@ -22,7 +21,8 @@
                     </form>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </div>
 </main>
 {% endblock %}

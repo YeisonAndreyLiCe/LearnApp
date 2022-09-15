@@ -1,5 +1,8 @@
 body{
     background-color: #121f3d;
+    position: relative;
+    padding-bottom:5rem ;
+    min-height: 100vh;
 }
 
 .btn-primary {
@@ -24,7 +27,9 @@ body{
     border: var(--bs-border-width) var(--bs-border-style) #86ee60!important;
 }
 
-
+.container{
+    margin-bottom: 20px;
+}
 
 .text-info {
     --bs-text-opacity: 1;
@@ -76,4 +81,13 @@ a:hover {
 .text-danger {
     --bs-text-opacity: 1;
     color: #86ee60!important;
+}
+
+#footer{
+    background-color: #1e5372;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 2.5rem;
+    color: #fff;
 }

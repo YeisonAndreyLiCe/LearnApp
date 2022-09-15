@@ -20,7 +20,7 @@ USE `learn_app` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `learn_app`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `rol` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
@@ -39,11 +39,11 @@ CREATE TABLE IF NOT EXISTS `learn_app`.`users` (
   `password` VARCHAR(255) NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `rol_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_users_roles1_idx` (`rol_id` ASC) VISIBLE,
+  INDEX `fk_users_roles1_idx` (`role_id` ASC) VISIBLE,
   CONSTRAINT `fk_users_roles1`
-    FOREIGN KEY (`rol_id`)
+    FOREIGN KEY (`role_id`)
     REFERENCES `learn_app`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `learn_app`.`records` (
   `name` VARCHAR(100) NOT NULL,
   `course_id` INT NOT NULL,
   `description` VARCHAR(255) NOT NULL,
-  `record` BLOB NOT NULL,
+  `record` VARCHAR(255) NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -162,18 +162,9 @@ CREATE TABLE IF NOT EXISTS `learn_app`.`users_has_courses` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-ALTER TABLE `learn_app`.`records`
-CHANGE COLUMN `record` `record` VARCHAR(250) NOT NULL ;
-
-INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('1', 'Admin');
-INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('2', 'Instructor');
-INSERT INTO `learn_app`.`roles` (`id`, `rol`) VALUES ('3', 'Student');
-INSERT INTO `learn_app`.`categories` (`id`, `name`, `description`) VALUES ('2', 'UX', 'Cursos de experiencia de usuario');
-INSERT INTO `learn_app`.`courses` (`name`, `description`, `instructor_id`, `category_id`) VALUES ('U/X desing responsive', 'A course about desin gresponsive', '1', '2');
-
-
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO roles(role) VALUES('admin'),('instructor'),('student');

@@ -30,16 +30,6 @@ body{
     flex-basis: 10rem;
 }
 
-#footer{
-    background-color: #1e5372;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    line-height: 2.5rem;
-    color: #fff;
-}
-
-
 .list-group-item-info .nav-link{
     color: black;
 }

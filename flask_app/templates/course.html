@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
+{% block logo_title %} {{course.name}} --> Records {% endblock %}
 {% block content %}
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-3">
         <div class="col-7 rounded-3 p-3 mb-2 border border-5">
             <h5 class="text-light">Records</h5>
             {% for record in records %}
@@ -42,9 +43,7 @@
             </div>
             
             <div class="rounded-3 p-3 mb-2 border border-5">
-                <div id="alertMessage">
-
-                </div>
+                <div id="alertMessage"></div>
                 <h5 class="text-light mt-3">Let's comment!</h5>
                 <form id="form" action="/create_comment" method="post" class="text-light">
                     <div class="form-group">
@@ -64,10 +63,11 @@
                         <input type="submit" value="Comment" class="btn btn-primary mt-3 d-flex justify-content-center">
                 </form>
             </div>
-            <div class="rounded-3 p-3 mb-2 border border-5">
+            <div class="card rounded-3 p-3 mb-2 border border-5">
                 <h5 class="text-light">Comments:</h5>
+                {% if comments %}
                 {% for comment in comments %}
-                    <div class="card mt-2" style="width: 13rem;">
+                    <div class="card mt-2" >
                         <div class="card-body">
                             <h5>{{comment.first_name}} commented:</h5>
                             <h5 class="card-title">Comment title: {{ comment.title }}</h5>
@@ -76,6 +76,9 @@
                         </div>
                     </div>
                 {%endfor%}
+                {% else %}
+                    <h5 class="text-light">No comments yet!</h5>
+                {% endif %}
             </div>
         </div>
     </div>
