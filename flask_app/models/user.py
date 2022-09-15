@@ -19,7 +19,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.role = Role.get_by_id(self.role_id)
-        self.courses = User_has_Courses.get_enrolled_courses(self.id)
+        #self.courses = User_has_Courses.get_enrolled_courses(self.id)
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users;"
@@ -44,23 +44,21 @@ class User:
         id = { 'id': data }
         query = "SELECT * FROM users WHERE id = %(id)s;"
         result = connectToMySQL('learn_app').query_db(query, id)
-        return cls(result[0])
+        if result:
+            return cls(result[0])
+        return False
     @classmethod
-    def update(cls, data):
-        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s WHERE id = %(id)s;"
+    def update_without_password(cls, data):
+        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s, birth_date = %(birth_date)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def update_password(cls, data):
-        query = "UPDATE users SET password = %(password)s WHERE id = %(id)s;"
+        query = "UPDATE users SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s, birth_date = %(birth_date)s, password = %(password)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def update_role(cls, data):
         data = {'role_id':data['role_id'],'id': data['id']}
         query = "UPDATE users SET role_id = %(role_id)s WHERE id = %(id)s;"
-        return connectToMySQL('learn_app').query_db(query, data)
-    @classmethod
-    def update_password(cls,data):
-        query = "UPDATE users SET password=%(password)s WHERE id = %(id)s;"
         return connectToMySQL('learn_app').query_db(query, data)
     @classmethod
     def delete(cls, data):
@@ -89,7 +87,8 @@ class User:
             errors['emailExist']='Email already exists'
         if not re_password.match(data['password']):
             errors['password']= "Password must be at least 8 characters, contain at least one number, one uppercase and one lowercase letter"
-        return errors      
+        return errors
+    
     @staticmethod
     def validate_update(data):
         errors={}
@@ -106,7 +105,7 @@ class User:
                 errors['birth_date']='You should are at least 14 years old'
         if not re_email.match(data['email']):
             errors['email']='Please enter a valid email'
-        query='SELECT * FROM users WHERE email = %(email)s'
+        query='SELECT * FROM users WHERE email = %(email)s AND id != %(id)s;'
         result=connectToMySQL('learn_app').query_db(query,data)
         if result:
             errors['emailExist']='Email already exists' 

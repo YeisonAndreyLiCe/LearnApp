@@ -38,19 +38,23 @@ def admin_actions():
             for key, value in errors.items():
                 data[key] = value
             return jsonify(data)
-        if 'category_id' in request.form:
+        if 'instructor_email' in request.form:
             user = User.get_by_email({'email': request.form['instructor_email']})
             if not user:
                 return jsonify({'instructor_email': 'No instructor with that email'})
+            file = request.files['image']
+            file_name = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
             data = {
                 'name': request.form['name'],
                 'description': request.form['description'],
                 'instructor_id': user.id,
                 'category_id': request.form['category_id'],
+                'image': file_name
             }
             Course.save(data)
             return jsonify({'route':'/courses'})
-        elif request.files:
+        elif 'record' in request.files:
             if request.files['record'].filename=="":
                 return jsonify({'record': 'Please upload a file'})
             file = request.files['record']
@@ -64,7 +68,15 @@ def admin_actions():
             }
             Record.save(form)
             return jsonify({'route': '/courses'})
-        Category.save(request.form)  
+        file = request.files['image']
+        file_name = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+        data = {
+            'name': request.form['name'],
+            'description': request.form['description'],
+            'image': file_name,
+        }
+        Category.save(data)  
         return jsonify({'route':'/courses'})    
     return redirect('/register_login')
 

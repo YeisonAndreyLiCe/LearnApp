@@ -31,13 +31,13 @@
                         <ul class="dropdown-menu text-withe">
                             {% if categories %}
                                 {% for category in categories %}
-                                    <li><a class="dropdown-item" href="/courses/{{category.id}}">{{category.name}}</a></li>
+                                    <li><a class="dropdown-item" href="/categories/{{category.id}}">{{category.name}}</a></li>
                                 {% endfor %}
                             {% endif %}
                         </ul>
                     </li>
                     <li class="fs-4">
-                        <a class="text-withe" href="/courses">Home</a>
+                        <a class="text-withe" href="/view_user">Edit User Info</a>
                     </li>
                     <li class="fs-4">
                         <a class="text-danger" href="/logout">Logout</a>

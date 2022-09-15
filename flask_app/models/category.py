@@ -6,10 +6,11 @@ class Category:
         self.description = data['description']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.image = data['image']
     # Method to create a new category
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO categories (name, description) VALUES (%(name)s, %(description)s);"
+        query = "INSERT INTO categories (name, description, image) VALUES (%(name)s, %(description)s, %(image)s);"
         return connectToMySQL('learn_app').query_db(query, data)
     # Method to get all categories
     @classmethod
@@ -23,13 +24,12 @@ class Category:
     def get_all_as_dic(cls):
         query = "SELECT name, id FROM categories"
         return connectToMySQL('learn_app').query_db(query)
-        
     
     # Method to get one category
     @classmethod
     def get_by_id(cls, data):
         id = {'id': data}
-        query = "SELECT * FROM categories WHERE id = %(id)s"
+        query = "SELECT * FROM categories WHERE id = %(id)s;"
         result = connectToMySQL('learn_app').query_db(query, id)
         if result:
             return cls(result[0])

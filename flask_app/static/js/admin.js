@@ -38,20 +38,31 @@ $(document).ready(function() {
                         </div>`;
             var button = `<button type="submit" class="btn btn-primary">Submit</button>`;
             if(id == 'category') {
-                var fields = baseFields + button;
+                var fields = `${baseFields} 
+                            <div class="form-group my-3">
+                                <label for="imageCategory">Category Image</label>
+                                <input type="file" class="form-control" id="imageCategory" name="image">
+                            </div> ${button}`;
                 $('#form').html(fields);
                 /* $('#form').attr('action', '/create_category'); */
             }
             else if(id == 'course') {
-                var fields = baseFields + `<div class="form-group my-3">
+                var fields =`${baseFields} 
+                            <div class="form-group my-3">
+                                <label for="imageCourse">Course Image</label>
+                                <input type="file" class="form-control" id="imageCourse" name="image">
+                            </div>
+                            <div class="form-group my-3">
                                 <label for="courseInstructor">Instructor Email</label>
                                 <input type="email" class="form-control" id="courseInstructor" name="instructor_email">
                             </div>
                             <div class="form-group my-3">
                                 <label for="courseCategory">Category</label>
-                                <select class="form-select" aria-label="Default select example" name="category_id">`+
-                                select
-                                +`</select> </div>`+ button;
+                                <select class="form-select" aria-label="Default select example" name="category_id"> 
+                                    ${select}
+                                </select>
+                            </div>
+                            ${button}`;
                 $('#form').html(fields);
                 /* $('#form').attr('action', '/create_course'); */
             }

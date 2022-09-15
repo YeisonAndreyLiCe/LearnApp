@@ -48,13 +48,14 @@ def create_comment():
 @app.route('/enroll', methods=['POST'])
 def enroll_course():
     if request.method=='POST':
+        print(request.form)
         errors=User_has_Courses.validate(request.form)
         if errors:
             return jsonify(errors)
         else:
             User_has_Courses.enroll_course(request.form)
             return jsonify({'route':'/courses'})
-    return redirect('/register_login')
+    return redirect('/logout')
 
 @app.route('/create_course', methods=['POST'])
 def create_course():

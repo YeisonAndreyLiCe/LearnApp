@@ -58,7 +58,7 @@ def courses():
     user = User.get_by_id(session['user_id'])
     context = {
         'user' : user,
-        'courses_user' : user.courses,
+        'courses_user' : User_has_Courses.get_enrolled_courses(user.id),
         'categories' : Category.get_all(),
     }
     return render_template('courses.html', **context)
@@ -77,12 +77,31 @@ def edit_user():
     user = User.get_by_id(session['user_id'])
     return render_template('edit_user.html', user = user)
 
-@app.route('/update_user', methods=['POST'])
+@app.route('/update_user_info', methods=['POST'])
 def update_user():
-    if not User.validate_update(request.form):
-            return redirect('/edit_user')
-    User.update(request.form)
-    return redirect('/view_user')
+    if not 'user_id' in session:
+        return redirect('/register_login')
+    errors = User.validate_update(request.form)
+    if errors:
+        return jsonify(errors)
+    if 'password' in request.form:
+        error = User.validate_password(request.form)
+        if error:
+            return jsonify(error)
+        pwd = bcrypt.generate_password_hash(request.form['password'])
+        form = {
+            'id':request.form['id'],
+            'first_name':request.form['first_name'],
+            'last_name':request.form['last_name'],
+            'birth_date':request.form['birth_date'],
+            'role_id':'1',
+            'email':request.form['email'],
+            'password':pwd,
+        }
+        User.update_password(form)
+        return jsonify({'route':'/view_user'})
+    User.update_without_password(request.form)
+    return jsonify({'route':'/view_user'})
 
 @app.route('/delete/<int:id>')
 def delete_user(id):

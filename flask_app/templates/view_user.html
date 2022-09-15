@@ -2,40 +2,35 @@
 {% block logo_title %} User Information {% endblock %}
 {% block content %}
 <main id="main" class="container">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">User Information</h3>
+    <div id="alertMessage"></div>
+    <form action="/update_user_info" id="form">
+        <input type="hidden" name="id" value="{{user.id}}">
+        <div class="form-group my-2 text-white">
+            <label for="first_name">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" value="{{ user.first_name }} {{user.last_name}}" readonly>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name='email' value="{{ user.email }}" readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" readonly>
-                    </div>
-                </div>
-                <div class="col-md-6" id="change_password">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" readonly>
-                    </div>
-                </div>
-            </div>
+        <div class="form-group my-2 text-white">
+            <label for="last_name">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
         </div>
-    </div>
+        <div class="form-group my-2 text-white">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+        </div>
+        <div class="form-group my-2 text-white">
+            <label for="birthday">Birthday</label>
+            <input type="date" class="form-control" id="birthday" name="birth_date" value="{{ user.birth_date }}">
+        </div>
+        <div class="form-group my-2 text-white" id="change_password">
+        </div>
+        <a class="btn btn-primary mt-2" id="change_password_button">Update Password</a>
+
+        <button type="submit" class="btn btn-primary mt-2">Update</button>
+        
+    </form>
 </main>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/change_password.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ajax_validation.js') }}"></script>
 {% endblock %}
