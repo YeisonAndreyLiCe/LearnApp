@@ -16,14 +16,11 @@
             {% for course in course_user %}
                 <div class="col-12 col-md-4 col-lg-3 text-white rounded-3 p-3 mb-2 borderr border-5 ">
                     <h5 class="card-title">{{ course.user_id }}</h5>
-                    <h6 class="card-title">{{ course.name_course }}</h6>
+                    <h6 class="card-title"><a href="/courses/{{course.course_id}}">{{ course.name_course }}</a></h6>
                     <p class="card-text">{{ course.created_at }}</p>
                 </div>
             {% endfor %}
         {% endif %}
     </div>
 </main>
-{% endblock %}
-{% block scripts %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 {% endblock %}

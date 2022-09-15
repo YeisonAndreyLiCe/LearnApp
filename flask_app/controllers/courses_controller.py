@@ -5,6 +5,7 @@ from flask_app.models.course import Course
 from flask_app.models.category import Category
 from flask_app.models.comment import Comment
 from flask_app.models.record import Record
+from flask_app.models.user_has_courses import User_has_Courses
 
 
 @app.route('/categories/<int:id>')
@@ -39,13 +40,26 @@ def course(id):
 
 @app.route('/create_comment', methods=['POST'])
 def create_comment():
-    Comment.save(request.form)
-    return redirect('courses/'+request.form['course_id'])
+    if request.method=='POST':
+        errors = Comment.validate(request.form)
+        if errors:
+            return jsonify(errors)
+        else:
+            Comment.save(request.form)
+            return jsonify({'route':'/courses/'+request.form['course_id']})
+    return redirect('/register_login')
+#return redirect('courses/'+request.form['course_id'])
 
 @app.route('/enroll', methods=['POST'])
 def enroll_course():
-    User.enroll_course(request.form)
-    return redirect('/courses') 
+    if request.method=='POST':
+        errors=User_has_Courses.validate(request.form)
+        if errors:
+            return jsonify(errors)
+        else:
+            User_has_Courses.enroll_course(request.form)
+            return jsonify({'route':'/courses'})
+    return redirect('/register_login')
 
 
 @app.route('/create_course', methods=['POST'])

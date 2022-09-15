@@ -28,9 +28,12 @@
             <div class="card rounded-3 p-3 mb-2 border border-5">
                 <div class="card-body">
                     <h5 class="card-title">{{ course.name }}</h5>
-                    <h6 class="card-title">{{ course.instructor_name }}</h6>
+                    <h6 class="card-title">Instructor name: {{ course.instructor_name }}</h6>
                     <p class="card-text">{{ course.description }}</p>
-                    <form action="/enroll" method="post">
+                    <div id="alertMessage_login">
+
+                    </div>
+                    <form id="form_login" action="/enroll" method="post">
                         <input type="hidden" name="user_id" value="{{user.id}}">
                         <input type="hidden" name="course_id" value="{{course.id}}">
                         <button type="submit" class="btn btn-primary ">Enroll</button>
@@ -39,8 +42,11 @@
             </div>
             
             <div class="rounded-3 p-3 mb-2 border border-5">
+                <div id="alertMessage">
+
+                </div>
                 <h5 class="text-light mt-3">Let's comment!</h5>
-                <form action="/create_comment" method="post" class="text-light">
+                <form id="form" action="/create_comment" method="post" class="text-light">
                     <div class="form-group">
                         <label for="comment_title">Comment Title:</label>
                         <input type="text" id="comment_title" name="title" class="form-control">
@@ -58,10 +64,10 @@
                         <input type="submit" value="Comment" class="btn btn-primary mt-3 d-flex justify-content-center">
                 </form>
             </div>
-            <div class="rounded-3 p-3 mb-2 border border-5 container">
+            <div class="rounded-3 p-3 mb-2 border border-5">
                 <h5 class="text-light">Comments:</h5>
                 {% for comment in comments %}
-                    <div class="card" style="width: 13rem;">
+                    <div class="card mt-2" style="width: 13rem;">
                         <div class="card-body">
                             <h5>{{comment.first_name}} commented:</h5>
                             <h5 class="card-title">Comment title: {{ comment.title }}</h5>
@@ -72,6 +78,10 @@
                 {%endfor%}
             </div>
         </div>
-
     </div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+    <script src="{{ url_for('static', filename='js/login_validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ajax_validation.js') }}"></script>
 {% endblock %}
